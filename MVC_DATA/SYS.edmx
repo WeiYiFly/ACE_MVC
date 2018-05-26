@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SYS_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SYS_ModelStoreContainer">
+    <EntitySet Name="SYS_Module" EntityType="SYS_Model.Store.SYS_Module" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_Program" EntityType="SYS_Model.Store.SYS_Program" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_Role" EntityType="SYS_Model.Store.SYS_Role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_User" EntityType="SYS_Model.Store.SYS_User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_RoleSYS_Module" EntityType="SYS_Model.Store.SYS_RoleSYS_Module" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_ProgramSYS_Module" EntityType="SYS_Model.Store.SYS_ProgramSYS_Module" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_RoleSYS_Program" EntityType="SYS_Model.Store.SYS_RoleSYS_Program" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_UserSYS_Role" EntityType="SYS_Model.Store.SYS_UserSYS_Role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SYS_UserSYS_Program" EntityType="SYS_Model.Store.SYS_UserSYS_Program" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_SYS_RoleSYS_Module_SYS_Role" Association="SYS_Model.Store.FK_SYS_RoleSYS_Module_SYS_Role">
+      <End Role="SYS_Role" EntitySet="SYS_Role" />
+      <End Role="SYS_RoleSYS_Module" EntitySet="SYS_RoleSYS_Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_RoleSYS_Module_SYS_Module" Association="SYS_Model.Store.FK_SYS_RoleSYS_Module_SYS_Module">
+      <End Role="SYS_Module" EntitySet="SYS_Module" />
+      <End Role="SYS_RoleSYS_Module" EntitySet="SYS_RoleSYS_Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_ProgramSYS_Module_SYS_Program" Association="SYS_Model.Store.FK_SYS_ProgramSYS_Module_SYS_Program">
+      <End Role="SYS_Program" EntitySet="SYS_Program" />
+      <End Role="SYS_ProgramSYS_Module" EntitySet="SYS_ProgramSYS_Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_ProgramSYS_Module_SYS_Module" Association="SYS_Model.Store.FK_SYS_ProgramSYS_Module_SYS_Module">
+      <End Role="SYS_Module" EntitySet="SYS_Module" />
+      <End Role="SYS_ProgramSYS_Module" EntitySet="SYS_ProgramSYS_Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_RoleSYS_Program_SYS_Role" Association="SYS_Model.Store.FK_SYS_RoleSYS_Program_SYS_Role">
+      <End Role="SYS_Role" EntitySet="SYS_Role" />
+      <End Role="SYS_RoleSYS_Program" EntitySet="SYS_RoleSYS_Program" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_RoleSYS_Program_SYS_Program" Association="SYS_Model.Store.FK_SYS_RoleSYS_Program_SYS_Program">
+      <End Role="SYS_Program" EntitySet="SYS_Program" />
+      <End Role="SYS_RoleSYS_Program" EntitySet="SYS_RoleSYS_Program" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_UserSYS_Role_SYS_User" Association="SYS_Model.Store.FK_SYS_UserSYS_Role_SYS_User">
+      <End Role="SYS_User" EntitySet="SYS_User" />
+      <End Role="SYS_UserSYS_Role" EntitySet="SYS_UserSYS_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_UserSYS_Role_SYS_Role" Association="SYS_Model.Store.FK_SYS_UserSYS_Role_SYS_Role">
+      <End Role="SYS_Role" EntitySet="SYS_Role" />
+      <End Role="SYS_UserSYS_Role" EntitySet="SYS_UserSYS_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_UserSYS_Program_SYS_User" Association="SYS_Model.Store.FK_SYS_UserSYS_Program_SYS_User">
+      <End Role="SYS_User" EntitySet="SYS_User" />
+      <End Role="SYS_UserSYS_Program" EntitySet="SYS_UserSYS_Program" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_UserSYS_Program_SYS_Program" Association="SYS_Model.Store.FK_SYS_UserSYS_Program_SYS_Program">
+      <End Role="SYS_Program" EntitySet="SYS_Program" />
+      <End Role="SYS_UserSYS_Program" EntitySet="SYS_UserSYS_Program" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SYS_Module">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="Lv" Type="char" Nullable="true" MaxLength="1" />
+    <Property Name="Controller" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="View_" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="Url" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Icon" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="UpId" Type="int" Nullable="true" />
+    <Property Name="ProgramId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="SYS_Program">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatorID" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="Del" Type="char" Nullable="true" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SYS_Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatorID" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="Del" Type="char" Nullable="true" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SYS_User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="Bu" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="Email" Type="varchar" Nullable="true" MaxLength="40" />
+    <Property Name="Tel" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="Passw" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="Del" Type="char" Nullable="true" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="SYS_RoleSYS_Module">
+    <Key>
+      <PropertyRef Name="SYS_Role_Id" />
+      <PropertyRef Name="SYS_Module_Id" />
+    </Key>
+    <Property Name="SYS_Role_Id" Type="int" Nullable="false" />
+    <Property Name="SYS_Module_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_ProgramSYS_Module">
+    <Key>
+      <PropertyRef Name="SYS_Program_Id" />
+      <PropertyRef Name="SYS_Module_Id" />
+    </Key>
+    <Property Name="SYS_Program_Id" Type="int" Nullable="false" />
+    <Property Name="SYS_Module_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_RoleSYS_Program">
+    <Key>
+      <PropertyRef Name="SYS_Role_Id" />
+      <PropertyRef Name="SYS_Program_Id" />
+    </Key>
+    <Property Name="SYS_Role_Id" Type="int" Nullable="false" />
+    <Property Name="SYS_Program_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_UserSYS_Role">
+    <Key>
+      <PropertyRef Name="SYS_User_Id" />
+      <PropertyRef Name="SYS_Role_Id" />
+    </Key>
+    <Property Name="SYS_User_Id" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="SYS_Role_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_UserSYS_Program">
+    <Key>
+      <PropertyRef Name="SYS_User_Id" />
+      <PropertyRef Name="SYS_Program_Id" />
+    </Key>
+    <Property Name="SYS_User_Id" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="SYS_Program_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_SYS_RoleSYS_Module_SYS_Role">
+    <End Role="SYS_Role" Type="SYS_Model.Store.SYS_Role" Multiplicity="1" />
+    <End Role="SYS_RoleSYS_Module" Type="SYS_Model.Store.SYS_RoleSYS_Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_RoleSYS_Module">
+        <PropertyRef Name="SYS_Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_RoleSYS_Module_SYS_Module">
+    <End Role="SYS_RoleSYS_Module" Type="SYS_Model.Store.SYS_RoleSYS_Module" Multiplicity="*" />
+    <End Role="SYS_Module" Type="SYS_Model.Store.SYS_Module" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_RoleSYS_Module">
+        <PropertyRef Name="SYS_Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_ProgramSYS_Module_SYS_Program">
+    <End Role="SYS_Program" Type="SYS_Model.Store.SYS_Program" Multiplicity="1" />
+    <End Role="SYS_ProgramSYS_Module" Type="SYS_Model.Store.SYS_ProgramSYS_Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_ProgramSYS_Module">
+        <PropertyRef Name="SYS_Program_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_ProgramSYS_Module_SYS_Module">
+    <End Role="SYS_ProgramSYS_Module" Type="SYS_Model.Store.SYS_ProgramSYS_Module" Multiplicity="*" />
+    <End Role="SYS_Module" Type="SYS_Model.Store.SYS_Module" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_ProgramSYS_Module">
+        <PropertyRef Name="SYS_Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_RoleSYS_Program_SYS_Role">
+    <End Role="SYS_Role" Type="SYS_Model.Store.SYS_Role" Multiplicity="1" />
+    <End Role="SYS_RoleSYS_Program" Type="SYS_Model.Store.SYS_RoleSYS_Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_RoleSYS_Program">
+        <PropertyRef Name="SYS_Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_RoleSYS_Program_SYS_Program">
+    <End Role="SYS_RoleSYS_Program" Type="SYS_Model.Store.SYS_RoleSYS_Program" Multiplicity="*" />
+    <End Role="SYS_Program" Type="SYS_Model.Store.SYS_Program" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_RoleSYS_Program">
+        <PropertyRef Name="SYS_Program_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_UserSYS_Role_SYS_User">
+    <End Role="SYS_User" Type="SYS_Model.Store.SYS_User" Multiplicity="1" />
+    <End Role="SYS_UserSYS_Role" Type="SYS_Model.Store.SYS_UserSYS_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_UserSYS_Role">
+        <PropertyRef Name="SYS_User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_UserSYS_Role_SYS_Role">
+    <End Role="SYS_UserSYS_Role" Type="SYS_Model.Store.SYS_UserSYS_Role" Multiplicity="*" />
+    <End Role="SYS_Role" Type="SYS_Model.Store.SYS_Role" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_UserSYS_Role">
+        <PropertyRef Name="SYS_Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_UserSYS_Program_SYS_User">
+    <End Role="SYS_User" Type="SYS_Model.Store.SYS_User" Multiplicity="1" />
+    <End Role="SYS_UserSYS_Program" Type="SYS_Model.Store.SYS_UserSYS_Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_UserSYS_Program">
+        <PropertyRef Name="SYS_User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_UserSYS_Program_SYS_Program">
+    <End Role="SYS_UserSYS_Program" Type="SYS_Model.Store.SYS_UserSYS_Program" Multiplicity="*" />
+    <End Role="SYS_Program" Type="SYS_Model.Store.SYS_Program" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_UserSYS_Program">
+        <PropertyRef Name="SYS_Program_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SYS_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ACE_MVCEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="SYS_Module" EntityType="SYS_Model.SYS_Module" />
+          <EntitySet Name="SYS_Program" EntityType="SYS_Model.SYS_Program" />
+          <EntitySet Name="SYS_Role" EntityType="SYS_Model.SYS_Role" />
+          <AssociationSet Name="SYS_RoleSYS_Module" Association="SYS_Model.SYS_RoleSYS_Module">
+            <End Role="SYS_Role" EntitySet="SYS_Role" />
+            <End Role="SYS_Module" EntitySet="SYS_Module" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_ProgramSYS_Module" Association="SYS_Model.SYS_ProgramSYS_Module">
+            <End Role="SYS_Program" EntitySet="SYS_Program" />
+            <End Role="SYS_Module" EntitySet="SYS_Module" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_RoleSYS_Program" Association="SYS_Model.SYS_RoleSYS_Program">
+            <End Role="SYS_Role" EntitySet="SYS_Role" />
+            <End Role="SYS_Program" EntitySet="SYS_Program" />
+          </AssociationSet>
+          <EntitySet Name="SYS_User" EntityType="SYS_Model.SYS_User" />
+          <AssociationSet Name="SYS_UserSYS_Role" Association="SYS_Model.SYS_UserSYS_Role">
+            <End Role="SYS_User" EntitySet="SYS_User" />
+            <End Role="SYS_Role" EntitySet="SYS_Role" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_UserSYS_Program" Association="SYS_Model.SYS_UserSYS_Program">
+            <End Role="SYS_User" EntitySet="SYS_User" />
+            <End Role="SYS_Program" EntitySet="SYS_Program" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SYS_Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Lv" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="View_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UpId" Type="Int32" />
+          <Property Name="ProgramId" Type="Int32" />
+          <NavigationProperty Name="SYS_Role" Relationship="SYS_Model.SYS_RoleSYS_Module" FromRole="SYS_Module" ToRole="SYS_Role" />
+          <NavigationProperty Name="SYS_Program" Relationship="SYS_Model.SYS_ProgramSYS_Module" FromRole="SYS_Module" ToRole="SYS_Program" />
+        </EntityType>
+        <EntityType Name="SYS_Program">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatorID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="Del" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="SYS_Module" Relationship="SYS_Model.SYS_ProgramSYS_Module" FromRole="SYS_Program" ToRole="SYS_Module" />
+          <NavigationProperty Name="SYS_Role" Relationship="SYS_Model.SYS_RoleSYS_Program" FromRole="SYS_Program" ToRole="SYS_Role" />
+          <NavigationProperty Name="SYS_User" Relationship="SYS_Model.SYS_UserSYS_Program" FromRole="SYS_Program" ToRole="SYS_User" />
+        </EntityType>
+        <EntityType Name="SYS_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatorID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="Del" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="SYS_Module" Relationship="SYS_Model.SYS_RoleSYS_Module" FromRole="SYS_Role" ToRole="SYS_Module" />
+          <NavigationProperty Name="SYS_Program" Relationship="SYS_Model.SYS_RoleSYS_Program" FromRole="SYS_Role" ToRole="SYS_Program" />
+          <NavigationProperty Name="SYS_User" Relationship="SYS_Model.SYS_UserSYS_Role" FromRole="SYS_Role" ToRole="SYS_User" />
+        </EntityType>
+        <Association Name="SYS_RoleSYS_Module">
+          <End Type="SYS_Model.SYS_Role" Role="SYS_Role" Multiplicity="*" />
+          <End Type="SYS_Model.SYS_Module" Role="SYS_Module" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_ProgramSYS_Module">
+          <End Type="SYS_Model.SYS_Program" Role="SYS_Program" Multiplicity="*" />
+          <End Type="SYS_Model.SYS_Module" Role="SYS_Module" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_RoleSYS_Program">
+          <End Type="SYS_Model.SYS_Role" Role="SYS_Role" Multiplicity="*" />
+          <End Type="SYS_Model.SYS_Program" Role="SYS_Program" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SYS_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Bu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Passw" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Del" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="SYS_Role" Relationship="SYS_Model.SYS_UserSYS_Role" FromRole="SYS_User" ToRole="SYS_Role" />
+          <NavigationProperty Name="SYS_Program" Relationship="SYS_Model.SYS_UserSYS_Program" FromRole="SYS_User" ToRole="SYS_Program" />
+        </EntityType>
+        <Association Name="SYS_UserSYS_Role">
+          <End Type="SYS_Model.SYS_User" Role="SYS_User" Multiplicity="*" />
+          <End Type="SYS_Model.SYS_Role" Role="SYS_Role" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_UserSYS_Program">
+          <End Type="SYS_Model.SYS_User" Role="SYS_User" Multiplicity="*" />
+          <End Type="SYS_Model.SYS_Program" Role="SYS_Program" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SYS_ModelStoreContainer" CdmEntityContainer="ACE_MVCEntities">
+    <EntitySetMapping Name="SYS_Module">
+      <EntityTypeMapping TypeName="IsTypeOf(SYS_Model.SYS_Module)">
+        <MappingFragment StoreEntitySet="SYS_Module">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Lv" ColumnName="Lv" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="View_" ColumnName="View_" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="UpId" ColumnName="UpId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SYS_Program">
+      <EntityTypeMapping TypeName="IsTypeOf(SYS_Model.SYS_Program)">
+        <MappingFragment StoreEntitySet="SYS_Program">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="Del" ColumnName="Del" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SYS_Role">
+      <EntityTypeMapping TypeName="IsTypeOf(SYS_Model.SYS_Role)">
+        <MappingFragment StoreEntitySet="SYS_Role">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="Del" ColumnName="Del" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SYS_User">
+      <EntityTypeMapping TypeName="IsTypeOf(SYS_Model.SYS_User)">
+        <MappingFragment StoreEntitySet="SYS_User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Bu" ColumnName="Bu" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Passw" ColumnName="Passw" />
+          <ScalarProperty Name="Del" ColumnName="Del" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="SYS_RoleSYS_Module" TypeName="SYS_Model.SYS_RoleSYS_Module" StoreEntitySet="SYS_RoleSYS_Module">
+      <EndProperty Name="SYS_Role">
+        <ScalarProperty Name="Id" ColumnName="SYS_Role_Id" />
+      </EndProperty>
+      <EndProperty Name="SYS_Module">
+        <ScalarProperty Name="Id" ColumnName="SYS_Module_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SYS_ProgramSYS_Module" TypeName="SYS_Model.SYS_ProgramSYS_Module" StoreEntitySet="SYS_ProgramSYS_Module">
+      <EndProperty Name="SYS_Program">
+        <ScalarProperty Name="Id" ColumnName="SYS_Program_Id" />
+      </EndProperty>
+      <EndProperty Name="SYS_Module">
+        <ScalarProperty Name="Id" ColumnName="SYS_Module_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SYS_RoleSYS_Program" TypeName="SYS_Model.SYS_RoleSYS_Program" StoreEntitySet="SYS_RoleSYS_Program">
+      <EndProperty Name="SYS_Role">
+        <ScalarProperty Name="Id" ColumnName="SYS_Role_Id" />
+      </EndProperty>
+      <EndProperty Name="SYS_Program">
+        <ScalarProperty Name="Id" ColumnName="SYS_Program_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SYS_UserSYS_Role" TypeName="SYS_Model.SYS_UserSYS_Role" StoreEntitySet="SYS_UserSYS_Role">
+      <EndProperty Name="SYS_User">
+        <ScalarProperty Name="Id" ColumnName="SYS_User_Id" />
+      </EndProperty>
+      <EndProperty Name="SYS_Role">
+        <ScalarProperty Name="Id" ColumnName="SYS_Role_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SYS_UserSYS_Program" TypeName="SYS_Model.SYS_UserSYS_Program" StoreEntitySet="SYS_UserSYS_Program">
+      <EndProperty Name="SYS_User">
+        <ScalarProperty Name="Id" ColumnName="SYS_User_Id" />
+      </EndProperty>
+      <EndProperty Name="SYS_Program">
+        <ScalarProperty Name="Id" ColumnName="SYS_Program_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
