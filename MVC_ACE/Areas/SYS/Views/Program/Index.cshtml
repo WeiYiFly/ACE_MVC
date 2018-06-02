@@ -190,7 +190,7 @@
                         pager: pager_selector,
                         altRows: true,
                         //toppager: true,
-                        toolbar: [true, "top"],
+                      //  toolbar: [true, "top"],
                         multiselect: true,
                         //multikey: "ctrlKey",
                         multiboxonly: true,
@@ -198,14 +198,14 @@
                         loadComplete: function () {
                             var table = this;
                             setTimeout(function () {
-                                styleCheckbox(table);
-                                updateActionIcons(table);
+                                //styleCheckbox(table);
+                               // updateActionIcons(table);
                                 updatePagerIcons(table);
-                                enableTooltips(table);
+                                //enableTooltips(table);
                             }, 0);
                         },
 
-                        editurl: "/dummy.html",//nothing is saved
+                        //editurl: "/dummy.html",//nothing is saved
                         caption: "jqGrid with inline editing"
 
                         //,autowidth: true,
@@ -269,74 +269,74 @@
                             refreshicon: 'ace-icon fa fa-refresh green',
                             view: true,
                             viewicon: 'ace-icon fa fa-search-plus grey',
-                        },
-                        {
-                            //edit record form
-                            //closeAfterEdit: true,
-                            //width: 700,
-                            recreateForm: true,
-                            beforeShowForm: function (e) {
-                                var form = $(e[0]);
-                                form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                                style_edit_form(form);
-                            }
-                        },
-                        {
-                            //new record form
-                            //width: 700,
-                            closeAfterAdd: true,
-                            recreateForm: true,
-                            viewPagerButtons: false,
-                            beforeShowForm: function (e) {
-                                var form = $(e[0]);
+                        }//,
+                        //{
+                        //    //edit record form
+                        //    //closeAfterEdit: true,
+                        //    //width: 700,
+                        //    recreateForm: true,
+                        //    beforeShowForm: function (e) {
+                        //        var form = $(e[0]);
+                        //        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+                        //        style_edit_form(form);
+                        //    }
+                        //},
+                        //{
+                        //    //new record form
+                        //    //width: 700,
+                        //    closeAfterAdd: true,
+                        //    recreateForm: true,
+                        //    viewPagerButtons: false,
+                        //    beforeShowForm: function (e) {
+                        //        var form = $(e[0]);
      
-                                form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
-                                .wrapInner('<div class="widget-header" />')
-                                style_edit_form(form);
-                            }
-                        },
-                        {
-                            //delete record form
-                            recreateForm: true,
-                            beforeShowForm: function (e) {
-                                var form = $(e[0]);
-                                if (form.data('styled')) return false;
+                        //        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
+                        //        .wrapInner('<div class="widget-header" />')
+                        //        style_edit_form(form);
+                        //    }
+                        //},
+                        //{
+                        //    //delete record form
+                        //    recreateForm: true,
+                        //    beforeShowForm: function (e) {
+                        //        var form = $(e[0]);
+                        //        if (form.data('styled')) return false;
 
-                                form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                                style_delete_form(form);
+                        //        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+                        //        style_delete_form(form);
 
-                                form.data('styled', true);
-                            },
-                            onClick: function (e) {
-                                //alert(1);
-                            }
-                        },
-                        {
-                            //search form
-                            recreateForm: true,
-                            afterShowSearch: function (e) {
-                               // var form = $(e[0]);
-                               // form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                                //style_search_form(form);
-                            },
-                            afterRedraw: function () {
-                                style_search_filters($(this));
-                            }
-                            ,
-                            multipleSearch: true,
-                            /**
-                            multipleGroup:true,
-                            showQuery: true
-                            */
-                        },
-                        {
-                            //view record form
-                            recreateForm: true,
-                            beforeShowForm: function (e) {
-                                var form = $(e[0]);
-                                form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                            }
-                        }
+                        //        form.data('styled', true);
+                        //    },
+                        //    onClick: function (e) {
+                        //        //alert(1);
+                        //    }
+                        //},
+                        //{
+                        //    //search form
+                        //    recreateForm: true,
+                        //    afterShowSearch: function (e) {
+                        //       // var form = $(e[0]);
+                        //       // form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                        //        //style_search_form(form);
+                        //    },
+                        //    afterRedraw: function () {
+                        //        style_search_filters($(this));
+                        //    }
+                        //    ,
+                        //    multipleSearch: true,
+                        //    /**
+                        //    multipleGroup:true,
+                        //    showQuery: true
+                        //    */
+                        //},
+                        //{
+                        //    //view record form
+                        //    recreateForm: true,
+                        //    beforeShowForm: function (e) {
+                        //        var form = $(e[0]);
+                        //        form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                        //    }
+                        //}
                     )
 
 

@@ -21,6 +21,7 @@
 <script src="/ace/assets/js/date-time/bootstrap-datepicker.js"></script>
 <script src="/ace/assets/js/jqGrid/jquery.jqGrid.js"></script>
 <script src="/ace/assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+<script src="/ace/assets/js/jqGrid/i18n/grid.locale-cn.js"></script>
 
 <!-- PAGE CONTENT BEGINS -->
 <table id="list"></table>  
@@ -28,6 +29,10 @@
 <!-- PAGE CONTENT ENDS -->
 
 <script type="text/javascript">
+
+  
+    var grid_selector = "#list";
+    var pager_selector = "#grid-pager";
     var grid_data =
          [
              { id: "1", name: "Desktop Computer", note: "note", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
@@ -54,35 +59,78 @@
              { id: "22", name: "LCD Monitor", note: "note3", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
              { id: "23", name: "Speakers", note: "note", stock: "No", ship: "ARAMEX", sdate: "2007-12-03" }
          ];
+    jQuery(function ($) {
+        //響應式 設置
+        var parent_column = $(grid_selector).closest('[class*="col-"]');
+        //resize to fit page size
+        $(window).on('resize.jqGrid', function () {
+            $(grid_selector).jqGrid('setGridWidth', parent_column.width());
+        })
+
+        //resize on sidebar collapse/expand
+        $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
+            if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
+                //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
+                setTimeout(function () {
+                    $(grid_selector).jqGrid('setGridWidth', parent_column.width());
+                }, 0);
+            }
+        })
+    })
+    
+    //
+
         $("#list").jqGrid({
             //url:'server.php?q=2',//请求数据的地址
             data: grid_data,
             datatype: "local",
-            colNames: [ 'id', '姓名', 'note1', 'stock1', 'ship1', 'sdate1'],
-            //jqgrid主要通过下面的索引信息与后台传过来的值对应
-            colModel:[
-                { name: 'id', index: 'id', width: 55, sorttype:'float',sortable: true, },
-                {name:'name',index:'invdate', width:90},
-                { name: 'note', index: 'note', width: 100 },
-                {name:'stock',index:'stock', width:90},
-                { name: 'ship', index: 'ship', width: 90 },
-                { name: 'sdate', index: 'sdate', width: 90 }  
-                ],
+            colNames: ['ID', 'Last Sales', 'Name', 'Stock', 'Ship via', 'Notes', ' '],
+            colModel: [
+                { name: 'id', index: 'id', width: 60, sorttype: "int", editable: true },
+                { name: 'sdate', index: 'sdate', width: 90, editable: true, sorttype: "date" },
+                { name: 'name', index: 'name', width: 150, editable: true, editoptions: { size: "20", maxlength: "30" } },
+                { name: 'stock', index: 'stock', width: 70, editable: true, edittype: "checkbox", editoptions: { value: "Yes:No" } },
+                { name: 'ship', index: 'ship', width: 90, editable: true, edittype: "select", editoptions: { value: "FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX" } },
+                { name: 'note', index: 'note', width: 150, sortable: false, editable: true, edittype: "textarea", editoptions: { rows: "2", cols: "10" } },
+                  {
+                      name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
+                      formatter: 'actions',
+                      formatoptions: {
+                          keys: true,
+                          //delbutton: false,//disable delete button
+
+                         // delOptions: { recreateForm: true, beforeShowForm: beforeDeleteCallback },
+                          //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                      }
+                  }
+            ],
             caption: "我是jqgrid的标题",
-            //sortname: 'id',
-            //sortorder: "desc",
-            //sortable:true,
+     
             rowNum: 10,
             rowList: [10, 20, 30],
-            pager: '#pager',
+            pager: '#pager',          
             recordpos: 'right',
             height: 300,
             autowidth: true,
-            viewrecords: true  // 	是否要显示总记录数信息
 
+           // subGrid: true, 
+            altRows: true,
+            multiselect: true,
+            //multikey: "ctrlKey",
+            multiboxonly: false,//多選
+            viewrecords: true,  // 	是否要显示总记录数信息  
+            loadComplete: function () {
+            var table = this;
+            setTimeout(function () {
+                //styleCheckbox(table);
+                // updateActionIcons(table);
+                updatePagerIcons(table);//分頁圖標
+                //enableTooltips(table);
+            }, 0);
+        },
 
-            
         });
+        $(window).triggerHandler('resize.jqGrid');
         $("#list").jqGrid('navGrid', '#pager', {
             edit: true,
             editicon: 'ace-icon fa fa-pencil blue',
@@ -98,6 +146,24 @@
             viewicon: 'ace-icon fa fa-search-plus grey'
         });
 
+
+        //replace icons with FontAwesome icons like above
+        function updatePagerIcons(table) {
+            var replacement =
+            {
+                'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
+                'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
+                'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
+            };
+            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
+                var icon = $(this);
+                var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+
+                if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
+            })
+        }
+    
 
 
 </script>  
