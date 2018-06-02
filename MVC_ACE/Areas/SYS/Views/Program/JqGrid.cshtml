@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- page specific plugin scripts -->
+@*<script src="~/ace/dist/js/jquery.min.js"></script>
+<script src="~/ace/dist/js/jqGrid/i18n/grid.locale-cn.js"></script>
+<script src="/ace/assets/js/jqGrid/jquery.jqGrid.js"></script>
+<script src="/ace/assets/js/jqGrid/i18n/grid.locale-en.js"></script>s*@
+
+<script type="text/javascript">
+                window.jQuery || document.write("<script src='/ace/assets/js/jquery.js'>" + "<" + "/script>");
+</script>
+
+
+
+<!-- page specific plugin scripts -->
+<script src="/ace/assets/js/date-time/bootstrap-datepicker.js"></script>
+<script src="/ace/assets/js/jqGrid/jquery.jqGrid.js"></script>
+<script src="/ace/assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+
+<!-- PAGE CONTENT BEGINS -->
+<table id="list"></table>  
+<div id="pager"></div>
+<!-- PAGE CONTENT ENDS -->
+
+<script type="text/javascript">
+    var grid_data =
+         [
+             { id: "1", name: "Desktop Computer", note: "note", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "2", name: "Laptop", note: "Long text ", stock: "Yes", ship: "InTime", sdate: "2007-12-03" },
+             { id: "3", name: "LCD Monitor", note: "note3", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
+             { id: "4", name: "Speakers", note: "note", stock: "No", ship: "ARAMEX", sdate: "2007-12-03" },
+             { id: "5", name: "Laser Printer", note: "note2", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "6", name: "Play Station", note: "note3", stock: "No", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "7", name: "Mobile Telephone", note: "note", stock: "Yes", ship: "ARAMEX", sdate: "2007-12-03" },
+             { id: "8", name: "Server", note: "note2", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
+             { id: "9", name: "Matrix Printer", note: "note3", stock: "No", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "10", name: "Desktop Computer", note: "note", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "11", name: "Laptop", note: "Long text ", stock: "Yes", ship: "InTime", sdate: "2007-12-03" },
+             { id: "12", name: "LCD Monitor", note: "note3", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
+             { id: "13", name: "Speakers", note: "note", stock: "No", ship: "ARAMEX", sdate: "2007-12-03" },
+             { id: "14", name: "Laser Printer", note: "note2", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "15", name: "Play Station", note: "note3", stock: "No", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "16", name: "Mobile Telephone", note: "note", stock: "Yes", ship: "ARAMEX", sdate: "2007-12-03" },
+             { id: "17", name: "Server", note: "note2", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
+             { id: "18", name: "Matrix Printer", note: "note3", stock: "No", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "19", name: "Matrix Printer", note: "note3", stock: "No", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "20", name: "Desktop Computer", note: "note", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
+             { id: "21", name: "Laptop", note: "Long text ", stock: "Yes", ship: "InTime", sdate: "2007-12-03" },
+             { id: "22", name: "LCD Monitor", note: "note3", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
+             { id: "23", name: "Speakers", note: "note", stock: "No", ship: "ARAMEX", sdate: "2007-12-03" }
+         ];
+        $("#list").jqGrid({
+            //url:'server.php?q=2',//请求数据的地址
+            data: grid_data,
+            datatype: "local",
+            colNames: [ 'id', '姓名', 'note1', 'stock1', 'ship1', 'sdate1'],
+            //jqgrid主要通过下面的索引信息与后台传过来的值对应
+            colModel:[
+                { name: 'id', index: 'id', width: 55, sorttype:'float',sortable: true, },
+                {name:'name',index:'invdate', width:90},
+                { name: 'note', index: 'note', width: 100 },
+                {name:'stock',index:'stock', width:90},
+                { name: 'ship', index: 'ship', width: 90 },
+                { name: 'sdate', index: 'sdate', width: 90 }  
+                ],
+            caption: "我是jqgrid的标题",
+            //sortname: 'id',
+            //sortorder: "desc",
+            //sortable:true,
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            pager: '#pager',
+            recordpos: 'right',
+            height: 300,
+            autowidth: true,
+            viewrecords: true  // 	是否要显示总记录数信息
+
+
+            
+        });
+        $("#list").jqGrid('navGrid', '#pager', {
+            edit: true,
+            editicon: 'ace-icon fa fa-pencil blue',
+            add: true,
+            addicon: 'ace-icon fa fa-plus-circle purple',
+            del: true,
+            delicon: 'ace-icon fa fa-trash-o red',
+            search: true,
+            searchicon: 'ace-icon fa fa-search orange',
+            refresh: true,
+            refreshicon: 'ace-icon fa fa-refresh green',
+            view: true,
+            viewicon: 'ace-icon fa fa-search-plus grey'
+        });
+
+
+
+</script>  

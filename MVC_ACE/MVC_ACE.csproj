@@ -1217,6 +1217,7 @@
     <Content Include="ace\mustache\php\vendor\Mustache\Template.php" />
     <Content Include="ace\mustache\php\vendor\Mustache\Tokenizer.php" />
     <Content Include="ace\package.json" />
+    <Content Include="Areas\SYS\Views\Program\JqGrid.cshtml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />

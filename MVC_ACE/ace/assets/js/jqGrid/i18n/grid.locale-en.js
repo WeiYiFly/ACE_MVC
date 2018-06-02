@@ -19,7 +19,8 @@
 		// Browser globals
 		factory( jQuery );
 	}
-}(function( $ ) {
+}
+(function ($) {
 
 $.jgrid = $.jgrid || {};
 if(!$.jgrid.hasOwnProperty("regional")) {
@@ -205,4 +206,5 @@ $.jgrid.regional["en"] = {
 		idName : 'id'
 	}
 };
-}));
+})
+);
