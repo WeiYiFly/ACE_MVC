@@ -32,7 +32,7 @@
 
   
     var grid_selector = "#list";
-    var pager_selector = "#grid-pager";
+    var pager_selector = "#pager";
     var grid_data =
          [
              { id: "1", name: "Desktop Computer", note: "note", stock: "Yes", ship: "FedEx", sdate: "2007-12-03" },
@@ -59,6 +59,7 @@
              { id: "22", name: "LCD Monitor", note: "note3", stock: "Yes", ship: "TNT", sdate: "2007-12-03" },
              { id: "23", name: "Speakers", note: "note", stock: "No", ship: "ARAMEX", sdate: "2007-12-03" }
          ];
+
     jQuery(function ($) {
         //響應式 設置
         var parent_column = $(grid_selector).closest('[class*="col-"]');
@@ -67,7 +68,7 @@
             $(grid_selector).jqGrid('setGridWidth', parent_column.width());
         })
 
-        //resize on sidebar collapse/expand
+       // resize on sidebar collapse/expand
         $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
             if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
                 //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
@@ -76,18 +77,18 @@
                 }, 0);
             }
         })
-    })
+    
     
     //
 
-        $("#list").jqGrid({
+    $(grid_selector).jqGrid({
             //url:'server.php?q=2',//请求数据的地址
             data: grid_data,
             datatype: "local",
             colNames: ['ID', 'Last Sales', 'Name', 'Stock', 'Ship via', 'Notes', ' '],
             colModel: [
                 { name: 'id', index: 'id', width: 60, sorttype: "int", editable: true },
-                { name: 'sdate', index: 'sdate', width: 90, editable: true, sorttype: "date" },
+                { name: 'sdate', index: 'sdate', editable: true, sorttype: "date" },
                 { name: 'name', index: 'name', width: 150, editable: true, editoptions: { size: "20", maxlength: "30" } },
                 { name: 'stock', index: 'stock', width: 70, editable: true, edittype: "checkbox", editoptions: { value: "Yes:No" } },
                 { name: 'ship', index: 'ship', width: 90, editable: true, edittype: "select", editoptions: { value: "FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX" } },
@@ -103,12 +104,31 @@
                           //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                       }
                   }
-            ],
+        ],
+            //colModel: [
+            //       { name: 'id', index: 'id', width: 60, editable: true, sorttype: "int" },
+            //       { name: 'sdate', index: 'sdate', editable: true, sorttype: "date" },
+            //       { name: 'name', index: 'name', width: 150,  editoptions: { size: "20", maxlength: "30" } },
+            //       { name: 'stock', index: 'stock', width: 70,  edittype: "checkbox", editoptions: { value: "Yes:No" } },
+            //       { name: 'ship', index: 'ship', width: 90, dittype: "select", editoptions: { value: "FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX" } },
+            //       { name: 'note', index: 'note', width: 150, sortable: false,  edittype: "textarea", editoptions: { rows: "2", cols: "10" } },
+            //         {
+            //             name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
+            //             formatter: 'actions',
+            //             formatoptions: {
+            //                 keys: true,
+            //                 //delbutton: false,//disable delete button
+
+            //                 // delOptions: { recreateForm: true, beforeShowForm: beforeDeleteCallback },
+            //                 //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+            //             }
+            //         }
+            //],
             caption: "我是jqgrid的标题",
      
             rowNum: 10,
             rowList: [10, 20, 30],
-            pager: '#pager',          
+            pager: pager_selector,
             recordpos: 'right',
             height: 300,
             autowidth: true,
@@ -128,13 +148,14 @@
                 //enableTooltips(table);
             }, 0);
         },
-
+            editurl: "/SYS/Program/test"
         });
-        $(window).triggerHandler('resize.jqGrid');
-        $("#list").jqGrid('navGrid', '#pager', {
+       // $(window).triggerHandler('resize.jqGrid');
+    $(grid_selector).jqGrid('navGrid', pager_selector, {
             edit: true,
             editicon: 'ace-icon fa fa-pencil blue',
             add: true,
+           // addurl:'/SYS/Program/test',
             addicon: 'ace-icon fa fa-plus-circle purple',
             del: true,
             delicon: 'ace-icon fa fa-trash-o red',
@@ -143,10 +164,29 @@
             refresh: true,
             refreshicon: 'ace-icon fa fa-refresh green',
             view: true,
-            viewicon: 'ace-icon fa fa-search-plus grey'
-        });
+            viewicon: 'ace-icon fa fa-search-plus grey',
+     
+            editfunc: function (rowId) {
+                var idStr = "#" + rowId;
+                var $currRow = $("#gridTable").find(idStr);
+                var triggerName = $currRow.find("td:eq(1)").text();
+                var jobName = $currRow.find("td:eq(2)").text();
+                var editParams = {
+                    editData: {
+                        triggerName: triggerName,
+                        jobName: jobName
+                    },
+                    closeAfterEdit: true
+                };
+                $("#gridTable").jqGrid("editGridRow", rowId, editParams);
+            }
+    }
+        );
+    jQuery(grid_selector).navButtonAdd(pager_selector,
+        { caption: "Excel", buttonicon: "ui-icon-excel", onClickButton: function () { alert("导出excel"); }, position: "last" });
 
-
+    
+    
         //replace icons with FontAwesome icons like above
         function updatePagerIcons(table) {
             var replacement =
@@ -163,7 +203,9 @@
                 if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
             })
         }
-    
 
+        
+    
+    })
 
 </script>  

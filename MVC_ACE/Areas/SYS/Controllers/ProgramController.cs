@@ -19,6 +19,17 @@ namespace MVC_ACE.Areas.SYS.Controllers
            
             return View();
         }
+
+        public ActionResult test()
+        {
+
+
+            string sdate = Request["sdate"];
+
+
+
+            return Json("");
+        }
         public ActionResult getJison()
         {
             string grid_data = @"
