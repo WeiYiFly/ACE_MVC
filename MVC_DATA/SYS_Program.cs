@@ -14,25 +14,11 @@ namespace MVC_DATA
     
     public partial class SYS_Program
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SYS_Program()
-        {
-            this.SYS_Module = new HashSet<SYS_Module>();
-            this.SYS_Role = new HashSet<SYS_Role>();
-            this.SYS_User = new HashSet<SYS_User>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string ChinaName { get; set; }
+        public string EnglishName { get; set; }
         public string CreatorID { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public string Del { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYS_Module> SYS_Module { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYS_Role> SYS_Role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYS_User> SYS_User { get; set; }
     }
 }

@@ -67,16 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SYS.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SYS_Module.cs">
-      <DependentUpon>SYS.tt</DependentUpon>
-    </Compile>
     <Compile Include="SYS_Program.cs">
-      <DependentUpon>SYS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SYS_Role.cs">
-      <DependentUpon>SYS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SYS_User.cs">
       <DependentUpon>SYS.tt</DependentUpon>
     </Compile>
   </ItemGroup>

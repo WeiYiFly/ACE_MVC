@@ -5,15 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="883c3c6e84dd4631b9e3e533f9816b69" Name="Diagram1" >
-        <EntityTypeShape EntityType="SYS_Model.SYS_Module" Width="1.5" PointX="3.75" PointY="4.5" />
-        <EntityTypeShape EntityType="SYS_Model.SYS_Program" Width="1.5" PointX="1.375" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SYS_Model.SYS_Role" Width="1.5" PointX="7.5" PointY="0.625" />
-        <AssociationConnector Association="SYS_Model.SYS_RoleSYS_Module" />
-        <AssociationConnector Association="SYS_Model.SYS_ProgramSYS_Module" />
-        <AssociationConnector Association="SYS_Model.SYS_RoleSYS_Program" />
-        <EntityTypeShape EntityType="SYS_Model.SYS_User" Width="1.5" PointX="4" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="SYS_Model.SYS_UserSYS_Role" />
-        <AssociationConnector Association="SYS_Model.SYS_UserSYS_Program" />
+        <EntityTypeShape EntityType="SYS_Model.SYS_Program" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

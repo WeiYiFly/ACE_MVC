@@ -1,6 +1,10 @@
-﻿using System;
+﻿using MVC_ACE.Areas.SYS.Common;
+using MVC_DATA;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,6 +13,7 @@ namespace MVC_ACE.Areas.SYS.Controllers
     public class ProgramController : Controller
     {
         // GET: SYS/Program
+        ACE_MVCEntities Database = new ACE_MVCEntities();
         public ActionResult Index()
         {
            
@@ -16,32 +21,67 @@ namespace MVC_ACE.Areas.SYS.Controllers
         }
         public ActionResult JqGrid()
         {
-           
+            //for (int x = 0; x < 10000; x++)
+            //{
+            //    SYS_Program Program_table = new SYS_Program();
+            //    Program_table.ChinaName = "測試" + x.ToString();
+            //    Program_table.EnglishName = "Test" + x.ToString();
+
+            //    Program_table.CreatorID = "DG170542";
+            //    Program_table.CreatedTime = DateTime.Now;
+            //    Database.SYS_Program.Add(Program_table);
+
+            //}
+            //Database.SaveChanges();
             return View();
         }
 
-        public ActionResult test()
+        public ActionResult CRUD()
         {
+            Program Program_calss = new Program();
+            NameValueCollection forms = HttpContext.Request.Form;
+            string action = forms.Get("Oper");
+            string ID= forms.Get("Id");
+            string CName = forms.Get("ChinaName");
+            string EName = Request["EnglishName"];
+            string CID = Request["CreatorID"];
+            string CCID = Request["Id"];
+            if (action == "add")
+            { 
+                int number = Program_calss.add(CName, EName, CID);
+                if (number == 1)
+                    HttpContext.Response.Write("添加成功");
+                else
+                    HttpContext.Response.Write("添加失敗");
+            }
+            if (action == "edit")
+            {
+                string[] id = ID.Trim().Split(',');
+               int number= Program_calss.Update(int.Parse(id[0]), CName, EName, CID);
+                if (number == 1)
+                    HttpContext.Response.Write("修改成功");
+                else
+                    HttpContext.Response.Write("修改失敗");
 
+            }
+            if (action == "del")
+            {
+                string[] id = ID.Trim().Split(',');
+                int number = Program_calss.del(id);
+                if (number >= 1)
+                    HttpContext.Response.Write("=刪除成功");
+                else
+                    HttpContext.Response.Write("刪除失敗");
 
-            string sdate = Request["sdate"];
-
-
-
-            return Json("");
+            }
+            return Content("");
         }
-        public ActionResult getJison()
+        public ActionResult GetProgram()
         {
-            string grid_data = @"
-               [
-                   { id: '1', name: 'Desktop Computer', age: 'note ' },
-                   { id: '2', name: 'Laptop', age: 'Long text ' },
-                   { id: '3', name: 'LCD Monitor', age: 'note3' },
-                   { id: '4', name: 'Speakers', age: 'note' },
-                   { id: '5', name: 'Laser Printer', age: 'note2' },
-                   { id: '6', name: 'Play Station', age: 'note3' }
-               ];";
-            return Json(grid_data);
+            var program=Database.SYS_Program.Where(u =>u.Del!="" ).ToList();
+            var jsonResult= Json(program, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
     }
 }

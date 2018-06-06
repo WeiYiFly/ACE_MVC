@@ -37,6 +37,18 @@
     <script src="/ace/assets/js/html5shiv.js"></script>
     <script src="/ace/assets/js/respond.js"></script>
     <![endif]-->
+    <style>
+        /*表頭居中*/
+        th.ui-th-column div {
+            text-align: center;
+        }
+        /*自動換行*/
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            padding-top: 2px;
+        }
+    </style>
 </head>
 
 <body class="no-skin">
@@ -275,7 +287,7 @@
 
             <ul class="nav nav-list">
                 <li class="">
-                    <a href="/SYS/Program/Index">
+                    <a href="/SYS/Program/Jqgrid">
                         <i class="menu-icon fa fa-tachometer"></i>
                         <span class="menu-text"> Dashboard </span>
                     </a>
