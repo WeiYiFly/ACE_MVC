@@ -1225,6 +1225,7 @@
     <Content Include="ace\mustache\php\vendor\Mustache\Template.php" />
     <Content Include="ace\mustache\php\vendor\Mustache\Tokenizer.php" />
     <Content Include="ace\package.json" />
+    <Content Include="Areas\SYS\Views\Module\Index.cshtml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
@@ -1235,7 +1236,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\SYS\Common\Module.cs" />
     <Compile Include="Areas\SYS\Common\Program.cs" />
+    <Compile Include="Areas\SYS\Controllers\ModuleController.cs" />
     <Compile Include="Areas\SYS\Controllers\ProgramController.cs" />
     <Compile Include="Areas\SYS\SYSAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />

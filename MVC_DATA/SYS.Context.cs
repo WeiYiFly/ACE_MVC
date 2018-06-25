@@ -26,5 +26,7 @@ namespace MVC_DATA
         }
     
         public virtual DbSet<SYS_Program> SYS_Program { get; set; }
+        public virtual DbSet<SYS_Module> SYS_Module { get; set; }
+        public virtual DbSet<SYS_Role> SYS_Role { get; set; }
     }
 }

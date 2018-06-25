@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SYS_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SYS_Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="Lv" Type="char" MaxLength="1" />
+          <Property Name="Controller" Type="varchar" MaxLength="30" />
+          <Property Name="View_" Type="varchar" MaxLength="30" />
+          <Property Name="Url" Type="varchar" MaxLength="50" />
+          <Property Name="Icon" Type="varchar" MaxLength="30" />
+          <Property Name="UpId" Type="int" />
+          <Property Name="ProgramId" Type="int" />
+        </EntityType>
         <EntityType Name="SYS_Program">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,8 +30,22 @@
           <Property Name="CreatedTime" Type="datetime" />
           <Property Name="Del" Type="char" MaxLength="1" />
         </EntityType>
+        <EntityType Name="SYS_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="ProgramId" Type="int" />
+          <Property Name="Remark" Type="varchar" MaxLength="100" />
+          <Property Name="CreatorID" Type="varchar" MaxLength="30" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="Del" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityContainer Name="SYS_ModelStoreContainer">
+          <EntitySet Name="SYS_Module" EntityType="Self.SYS_Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_Program" EntityType="Self.SYS_Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Role" EntityType="Self.SYS_Role" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -25,6 +53,8 @@
       <Schema Namespace="SYS_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ACE_MVCEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="SYS_Program" EntityType="SYS_Model.SYS_Program" />
+          <EntitySet Name="SYS_Module" EntityType="SYS_Model.SYS_Module" />
+          <EntitySet Name="SYS_Role" EntityType="SYS_Model.SYS_Role" />
         </EntityContainer>
         <EntityType Name="SYS_Program">
           <Key>
@@ -33,6 +63,32 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ChinaName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="EnglishName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatorID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="Del" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SYS_Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Lv" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="View_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UpId" Type="Int32" />
+          <Property Name="ProgramId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SYS_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ProgramId" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CreatorID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
           <Property Name="Del" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
@@ -51,6 +107,34 @@
                 <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
                 <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
                 <ScalarProperty Name="ChinaName" ColumnName="ChinaName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Module">
+            <EntityTypeMapping TypeName="SYS_Model.SYS_Module">
+              <MappingFragment StoreEntitySet="SYS_Module">
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="UpId" ColumnName="UpId" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="View_" ColumnName="View_" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Lv" ColumnName="Lv" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Role">
+            <EntityTypeMapping TypeName="SYS_Model.SYS_Role">
+              <MappingFragment StoreEntitySet="SYS_Role">
+                <ScalarProperty Name="Del" ColumnName="Del" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,0 +1,336 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+                window.jQuery || document.write("<script src='/ace/assets/js/jquery.js'>" + "<" + "/script>");
+</script>
+<!-- page specific plugin scripts -->
+<script src="/ace/assets/js/date-time/bootstrap-datepicker.js"></script>
+<script src="/ace/assets/js/jqGrid/jquery.jqGrid.js"></script>
+<script src="/ace/assets/js/jqGrid/i18n/grid.locale-cn.js"></script>
+
+<!-- PAGE CONTENT BEGINS -->
+<div class="well well-sm">  菜單模塊管理</div>
+
+
+<div class="row"><table id="list" class="table"></table></div>
+<div id="pager"></div>
+
+<!-- PAGE CONTENT ENDS -->
+
+<script type="text/javascript">
+
+
+        var grid_selector = "#list";
+        var pager_selector = "#pager";
+
+        jQuery(function ($) {
+            //響應式 設置
+            var parent_column = $(grid_selector).closest('[class*="col-"]');
+            //resize to fit page size
+            $(window).on('resize.jqGrid', function () {
+                $(grid_selector).jqGrid('setGridWidth', parent_column.width());
+            })
+
+            // resize on sidebar collapse/expand
+            $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
+                if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
+                    //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
+                    setTimeout(function () {
+                        $(grid_selector).jqGrid('setGridWidth', parent_column.width());
+                    }, 0);
+                }
+            })
+            //響應式 設置 end
+            $(grid_selector).jqGrid({
+                url: '/SYS/Module/GetModule',//请求数据的地址
+                success: function (data) {
+                    alert(data)
+                },
+                datatype: "Json",
+                colNames: ['ID', '所屬程式', '上級菜單', '類型', '名字', '控制器', '視圖', '路徑', '圖標', ''],
+                colModel: [
+                    { name: 'Id', index: 'Id', width: 50, sorttype: "int", align: "center", editable: true, key: true, hidden: true },
+                    {
+                        name: 'ProgramId', index: 'ProgramId', width: 150, align: "center", editable: true, edittype: "select", 
+                        editoptions: {
+                            value: getProgramId(),
+                            dataEvents: [//给当前控件追加事件处理   
+                            {
+                                type: 'change',                 //下拉选择的时候    
+                                fn: function (e) {              //触发方法    
+                                    //获取当前下拉框的id名字（这是点击编辑按钮时才需要的，因为点击编辑按钮后，schoolName的下拉框会变成1_roleid,其中”1“是行号）    
+                                    //var itemName = this.id;
+                                    
+                                    //// var selectNum = itemName.match(/^\d+/);//（这是点击编辑按钮时才需要的）将id中的数字获取出来    
+                                    //var roleid = this.value; //获取选中的角色名称
+                                    //alert(itemName + ";;;" + roleid)
+                                    getup(); //调用获取角色下对应用户信息data的方法  
+                                }
+                            }]
+                        }                          
+                    },
+                    {
+                        name: 'UpId', index: 'UpId', width: 150, align: "center", editable: true, edittype: "select",
+                        editoptions: {
+                            value: getup(),
+                            dataEvents: [//给当前控件追加事件处理   
+                                {
+                                    type: 'change',                 //下拉选择的时候    
+                                    fn: function (e) {              //触发方法    
+                                       getLv()
+                                    }
+                                }]
+                        }
+                                             
+                    },
+                    { name: 'Lv', index: 'Lv', width: 150, align: "center", editable: true, edittype: "select", editoptions: { value: { 1: '模塊', 2: '菜單', 3: '子菜單' } } },                                         
+                    { name: 'Name', index: 'Name', width: 150, editable: true, align: "center", sorttype: "date" },        
+                    { name: 'Controller', index: 'Controller', width: 150, editable: true, align: "center" },
+                    { name: 'View_', index: 'View_', width: 150, editable: true, align: "center" },
+                    { name: 'Url', index: 'Url', width: 150, editable: true, align: "center" },
+                    { name: 'Icon', index: 'Icon', width: 150, editable: true, align: "center" },
+                      {
+                          name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
+                          formatter: 'actions',
+                          formatoptions: {
+                              keys: true,
+                          }
+                      }
+                ],
+
+                loadonce: true, //一次加载全部数据到客户端，由客户端进行排序。
+                sortable: true,
+                pager: pager_selector,
+                recordpos: 'right',
+                height: 500,
+                rowNum: 10,
+                rowList: [10, 20, 30],
+                caption: "系統數據明細",
+                autowidth: true,
+                // subGrid: true,
+                altRows: true,
+                multiselect: true,//配置要不要复选框
+                //multikey: "ctrlKey",
+                multiselect: true,//定义是否可以多选
+                viewrecords: true,  // 	是否要显示总记录数信息
+                rownumbers: true,//如果为ture则会在表格左边新增一列，显示行顺序号
+                loadComplete: function () {
+                    var table = this;
+                    setTimeout(function () {
+                        //styleCheckbox(table);
+                        // updateActionIcons(table);
+                        updatePagerIcons(table);//分頁圖標
+                        //enableTooltips(table);
+                        getup();
+                    }, 0);
+                },
+                editurl: "/SYS/Module/CRUD"
+            });
+            $(window).triggerHandler('resize.jqGrid');
+
+            $(grid_selector).jqGrid('navGrid', pager_selector, {
+                edit: true,
+                editicon: 'ace-icon fa fa-pencil blue',
+                add: true,
+                addicon: 'ace-icon fa fa-plus-circle purple',
+                del: true,
+                delicon: 'ace-icon fa fa-trash-o red',
+                search: true,
+                searchicon: 'ace-icon fa fa-search orange',
+                refresh: true,
+                refreshicon: 'ace-icon fa fa-refresh green',
+                view: true,
+                viewicon: 'ace-icon fa fa-search-plus grey'
+                //editfunc: function (rowId) {
+                //    var idStr = "#" + rowId;
+                //    var $currRow = $("#gridTable").find(idStr);
+                //    var triggerName = $currRow.find("td:eq(1)").text();
+                //    var jobName = $currRow.find("td:eq(2)").text();
+                //    var editParams = {
+                //        editData: {
+                //            triggerName: triggerName,
+                //            jobName: jobName
+                //        },
+                //        closeAfterEdit: true
+                //    };
+                //    $("#gridTable").jqGrid("editGridRow", rowId, editParams);
+                //}
+            },
+                 {
+                     //EDIT EVENTS AND PROPERTIES GOES HERE
+                     //                       height: 300,
+                     //                       width: 400,
+                     //                       top: 50,
+                     //                       left: 100,
+                     //                       dataheight: 280,
+                     closeOnEscape: true,//Closes the popup on pressing escape key
+                     reloadAfterSubmit: true,
+                     drag: true,
+                     afterSubmit: function (response, postdata) {
+                         if (response.responseText == "") {
+
+                             $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');//Reloads the grid after edit
+                             return [true, '']
+                         }
+                         else {
+                             $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid'); //Reloads the grid after edit
+                             return [false, response.responseText]//Captures and displays the response text on th Edit window
+                         }
+                     },
+                     editData: {
+                         EmpId: function () {
+
+                             var sel_id = $('#jQGridDemo').jqGrid('getGridParam', 'selrow');
+                             var value = $('#jQGridDemo').jqGrid('getCell', sel_id, '_id');
+                             return value;
+
+                         }
+                     }
+
+                 },
+                 {
+                     //ADD EVENTS AND PROPERTIES GOES HERE
+                     closeAfterAdd: true,//Closes the add window after add
+                     afterSubmit: function (response, postdata) {
+                         if (response.responseText == "") {
+
+                             $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid')//Reloads the grid after Add
+                             return [true, '']
+                         }
+                         else {
+                             $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid')//Reloads the grid after Add
+                             return [false, response.responseText]
+                         }
+                     }
+                 },
+                 {   //DELETE EVENTS AND PROPERTIES GOES HERE
+                     closeOnEscape: true,
+                     closeAfterDelete: true,
+                     reloadAfterSubmit: true,
+                     closeOnEscape: true,
+                     drag: true,
+                     afterSubmit: function (response, postdata) {
+                         alert(response.responseText)
+                         if (response.responseText == "") {
+                             $(grid_selector).trigger("reloadGrid", [{ current: true }]);
+                             return [false, response.responseText]
+                         }
+                         else {
+                             $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid')
+                             return [true, response.responseText]
+                         }
+                     },
+                     delData: {
+                         EmpId: function () {
+                             var sel_id = $(grid_selector).jqGrid('getGridParam', 'selrow');
+                             var value = $(grid_selector).jqGrid('getCell', sel_id, '_id');
+                             return value;
+                         }
+                     }
+                 },
+                 {
+                     //SEARCH EVENTS AND PROPERTIES GOES HERE
+
+                 }
+                );
+            //replace icons with FontAwesome icons like above
+            function updatePagerIcons(table) {
+                var replacement =
+                {
+                    'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
+                    'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
+                    'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
+                    'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
+                };
+                $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
+                    var icon = $(this);
+                    var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+
+                    if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
+                })
+            }
+
+
+
+        })
+
+    //獲取所以程式
+        function getProgramId() {
+            //动态生成select内容 
+            var str = "";
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SYS/Module/Get_ProgarmId",
+                success: function (data) {
+
+                    if (data != null) {
+                        //var jsonobj = eval(data);
+                        //var length = jsonobj.length;
+                        //for (var i = 0; i < length; i++) {
+                        //    if (i != length - 1) {
+                        //        str += jsonobj[i].personType + ":" + jsonobj[i].personType + ";";
+                        //    } else {
+                        //        str += jsonobj[i].personType + ":" + jsonobj[i].personType;// 这里是option里面的 value:label 
+                        //    }
+                        //}
+                        //$.each(jsonobj, function(i){ 
+                        //str+="personType:"+jsonobj[i].personType+";" 
+                        //$("<option value='" + jsonobj[i].personType + "'>" + jsonobj[i].personType+ "</option>").appendTo(typeselect); 
+                        //});
+                        str = data.json;
+                        //alert(str);
+                    }
+
+
+                }
+            });
+            return str;
+        }
+        //獲取上級
+        function getup() {
+            //动态生成select内容 
+            //var str = "0:無;1:測試";
+            var str = "0:無";
+            var val = $("#ProgramId").val()
+            //alert(val)
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SYS/Module/Get_UP",
+                data: { id: val },
+                success: function (data) {
+                    $("#UpId").empty();
+                    for (var i = 0; i < data.length; i++) {
+                       // alert(data[i])
+                        $("#UpId").append(data[i])
+                    }
+                   
+                }
+            });
+            //alert(str)
+            //$("#UpId").append("<option value='5'>Text</option>");
+            return str;
+        }
+    //獲取菜單等級
+        function getLv() {
+            var val = $("#UpId").val()
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SYS/Module/Get_Lv",
+                data: { id: val },
+                success: function (data) {
+                    if (data != null) {
+                        $("#Lv").val(data.json);
+                    }
+                   
+                }
+            });           
+        }
+ 
+
+
+</script>

@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="883c3c6e84dd4631b9e3e533f9816b69" Name="Diagram1" >
         <EntityTypeShape EntityType="SYS_Model.SYS_Program" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SYS_Model.SYS_Module" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SYS_Model.SYS_Role" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
