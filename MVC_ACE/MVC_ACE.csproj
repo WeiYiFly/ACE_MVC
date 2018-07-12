@@ -1226,9 +1226,49 @@
     <Content Include="ace\mustache\php\vendor\Mustache\Tokenizer.php" />
     <Content Include="ace\package.json" />
     <Content Include="Areas\SYS\Views\Module\Index.cshtml" />
+    <Content Include="Areas\SYS\Views\Role\Index.cshtml" />
+    <Content Include="Areas\SYS\Views\User\Index.cshtml" />
+    <Content Include="Areas\SYS\Views\ProgramUser\Index.cshtml" />
+    <Content Include="Areas\SYS\Views\RolePermission\Index.cshtml" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-theme.min.css.map" />
+    <Content Include="scripts\Bootstrap\css\bootstrap.css.map" />
+    <Content Include="scripts\Bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-table.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-theme.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-treeview.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap-treeview.min.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap.css" />
+    <Content Include="scripts\Bootstrap\css\bootstrap.min.css" />
+    <Content Include="scripts\Bootstrap\css\jquery-ui-1.10.0.custom.css" />
+    <Content Include="scripts\Bootstrap\css\jquery.ui.1.10.0.ie.css" />
+    <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="scripts\Bootstrap\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap-table-zh-CN.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap-table.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap-treeview.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap-treeview.min.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap.js" />
+    <Content Include="scripts\Bootstrap\js\bootstrap.min.js" />
+    <Content Include="scripts\Bootstrap\js\jquery-2.0.3.js" />
+    <Content Include="scripts\Bootstrap\js\jquery-2.0.3.min.js" />
+    <Content Include="scripts\Bootstrap\js\jquery-ui-1.10.0.custom.min.js" />
+    <Content Include="scripts\Bootstrap\js\npm.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
+    <Content Include="scripts\jquery-2.0.3.min.js" />
+    <Content Include="scripts\js\jquery-2.0.3.js" />
+    <Content Include="scripts\js\jquery-2.0.3.min.js" />
+    <Content Include="scripts\js\json2.js" />
+    <Content Include="scripts\js\laydate.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1238,13 +1278,23 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\SYS\Common\Module.cs" />
     <Compile Include="Areas\SYS\Common\Program.cs" />
+    <Compile Include="Areas\SYS\Common\Role.cs" />
+    <Compile Include="Areas\SYS\Common\User.cs" />
     <Compile Include="Areas\SYS\Controllers\ModuleController.cs" />
     <Compile Include="Areas\SYS\Controllers\ProgramController.cs" />
+    <Compile Include="Areas\SYS\Controllers\ProgramUserController.cs" />
+    <Compile Include="Areas\SYS\Controllers\RoleController.cs" />
+    <Compile Include="Areas\SYS\Controllers\RolePermissionController.cs" />
+    <Compile Include="Areas\SYS\Controllers\TestController.cs" />
+    <Compile Include="Areas\SYS\Controllers\UserController.cs" />
     <Compile Include="Areas\SYS\SYSAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AceTree.cs" />
+    <Compile Include="Models\AceTreeItem.cs" />
+    <Compile Include="Models\AdditionalParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1267,7 +1317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Areas\SYS\Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVC_DATA\MVC_DATA.csproj">

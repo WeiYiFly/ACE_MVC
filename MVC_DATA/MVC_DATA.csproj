@@ -73,6 +73,15 @@
     <Compile Include="SYS_Program.cs">
       <DependentUpon>SYS.tt</DependentUpon>
     </Compile>
+    <Compile Include="SYS_Role.cs">
+      <DependentUpon>SYS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_User.cs">
+      <DependentUpon>SYS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_UserSYS_Program.cs">
+      <DependentUpon>SYS.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <script type="text/javascript">
                 window.jQuery || document.write("<script src='/ace/assets/js/jquery.js'>" + "<" + "/script>");
 </script>
@@ -11,7 +13,7 @@
 <script src="/ace/assets/js/jqGrid/i18n/grid.locale-cn.js"></script>
 
 <!-- PAGE CONTENT BEGINS -->
-<div class="well well-sm">  程式管理</div>
+<div class="well well-sm">  角色管理</div>
 
 
 <div class="row"><table id="list" class="table"></table></div>
@@ -24,7 +26,7 @@
 
         var grid_selector = "#list";
         var pager_selector = "#pager";
-        
+
         jQuery(function ($) {
             //響應式 設置
             var parent_column = $(grid_selector).closest('[class*="col-"]');
@@ -44,27 +46,37 @@
             })
             //響應式 設置 end
             $(grid_selector).jqGrid({
-                url: '/SYS/Program/GetProgram',//请求数据的地址
-      
+                url: '/SYS/Role/GetRole',//请求数据的地址
+                success: function (data) {
+                    alert(data)
+                },
                 datatype: "Json",
-                colNames: ['ID', '中文名字', '英文名字', '創建人', '創建時間','action'],
+                colNames: ['ID', '所屬程式', '角色名字', '備註', '創建人','創建時間', ''],
                 colModel: [
                     { name: 'Id', index: 'Id', width: 50, sorttype: "int", align: "center", editable: true, key: true, hidden: true },
-                    { name: 'ChinaName', index: 'ChinaName',width: 150, editable: true, align: "center", sorttype: "date" },
-                    { name: 'EnglishName', index: 'EnglishName', width: 150, editable: true, align: "center", editoptions: { size: "20", maxlength: "30" } },
-                    { name: 'CreatorID', index: 'CreatorID', width: 150, editable: true, align: "center"},
                     {
-                        name: 'CreatedTime', index: 'CreatedTime', width: 90, align: "center",
+                        name: 'ProgramId', index: 'ProgramId', width: 150, align: "center", editable: true, edittype: "select",
+                        editoptions: {
+                            value: getProgramId()
+                        }
+                           
+                    },
+         
+                    { name: 'Name', index: 'Name', width: 150, editable: true, align: "center", sorttype: "date" },
+                    { name: 'Remark', index: 'Remark', width: 150, editable: true, align: "center" },
+                    { name: 'CreatorID', index: 'CreatorID', width: 150, editable: true, align: "center" },
+                    {
+                         name: 'CreatedTime', index: 'CreatedTime', width: 90, align: "center",
                          formatter: "date", formatoptions: { srcformat: 'u', newformat: 'Y-m-d H:i:s' }
                     },
-
-                      {
+                    {
                           name: 'myac', index: '', width: 80, fixed: true, sortable: false, resize: false,
                           formatter: 'actions',
                           formatoptions: {
                               keys: true,                            
                           }
                       }
+                  
                 ],
 
                 loadonce: true, //一次加载全部数据到客户端，由客户端进行排序。
@@ -90,11 +102,13 @@
                         // updateActionIcons(table);
                         updatePagerIcons(table);//分頁圖標
                         //enableTooltips(table);
+                        //getup();
                     }, 0);
                 },
-                editurl: "/SYS/Program/CRUD"
+                editurl: "/SYS/Role/CRUD"
             });
-             $(window).triggerHandler('resize.jqGrid');
+            $(window).triggerHandler('resize.jqGrid');
+
             $(grid_selector).jqGrid('navGrid', pager_selector, {
                 edit: true,
                 editicon: 'ace-icon fa fa-pencil blue',
@@ -221,5 +235,29 @@
 
         })
 
+    //獲取所以程式
+        function getProgramId() {
+            //动态生成select内容
+            var str = "";
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SYS/Role/GetProgram",
+                success: function (data) {
+                    //alert(data.json)
+                    if (data != null) {
+          
+                        str = data.json;
+                    }
+
+
+                }
+            });
+            return str;
+        }
+ 
+
 
 </script>
+
+

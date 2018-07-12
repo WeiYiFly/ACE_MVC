@@ -1,0 +1,339 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+    <title>角色管理</title>
+
+      
+<link href="~/scripts/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-2.0.3.min.js"></script>
+   @* <script src="~/scripts/Bootstrap/js/bootstrap.min.js"></script>*@
+    @*<script src="~/scripts/bootstrap.min.js"></script>*@
+
+        <link href="~/scripts/Bootstrap/css/bootstrap-table.css" rel="stylesheet" />
+        <script src="~/scripts/Bootstrap/js/bootstrap-table.js"></script>
+        <script src="~/scripts/Bootstrap/js/bootstrap-table-zh-CN.js"></script>
+
+   @* <script src="~/Areas/SYS/scripts/js/json2.js"></script>
+    <link href="~/Areas/SYS/scripts/css/myAlert.css" rel="stylesheet" />
+    <script src="~/Areas/SYS/scripts/js/myAlert.js"></script>*@
+    <script type="text/javascript">
+        $(function () {
+            pageInit();
+            $("#RoleNameList").delegate(".RoleName", "click", function () {
+                //alert($(this).attr("value"));
+                $("#roletable").attr("hidden", false);
+                //alert($(this).html());
+                $("#Role2").html($(this).html());
+                $("#RoleId").val($(this).attr("value"));
+                $(".active").removeClass("active");
+                $(this).addClass("active");
+                $("#table1").bootstrapTable("load", getHasRole($(this).attr("value")));
+            });
+            $('#myModal').click(function () {
+              //  $('#myModal').modal('show')
+            })
+            $('#myModal').on('shown.bs.modal', function () {
+                
+               // alert("b");
+                $("#table2").bootstrapTable("load", getNoRole($("#RoleId").val()));
+            });
+            $("#RoleDistribute").click(function () {
+                
+                var row = $.map($("#table2").bootstrapTable('getSelections'), function (row) {
+                    return row;
+                });
+                var ids = "";
+                var len = row.length;
+                var roleId = $("#RoleId").val();
+                if (roleId == null || roleId == "") {
+                    alert("角色ID為空");
+                }
+                else if (len <= 0) {
+                    alert("請至少選中一行！");
+                }
+                else {
+                    for (var i = 0; i < len; i++) {
+                        ids += row[i].UserId + ",";
+                    }
+                    //alert(ids);
+                    $.ajax({
+                        url: "/SYS/ProgramUser/SetProgramUserList",
+                        type: "POST",
+                        data: {
+                            Ids:ids,
+                            RoleId:roleId,
+                        },
+                        cache: false,
+                        async: false,
+                        success: function (data) {
+                            var resultDatas = data.split(':');
+                            $("#table1").bootstrapTable("load", getHasRole($("#RoleId").val()));
+                            $("#table2").bootstrapTable("load", getNoRole($("#RoleId").val()));
+                            alert(resultDatas[1]);
+                        },
+                        error: function (data) {
+                            alert(JSON.stringify(data));
+                            alert("異常！！！");
+                        }
+                    }, JSON);
+                }
+            });
+        });
+        function pageInit() {
+          //  alert('a')
+            $("#table1").bootstrapTable({
+                method: 'get',
+                cache: false,
+                height: 712,
+                striped: true,
+                pagination: true,
+                pageSize: 15,
+                pageNumber: 1,
+                pageList: [15, 25, 50],
+                sidePagination: 'client',
+                search: true,
+                showExport: false,
+                exportTypes: ['csv', 'txt', 'xml'],
+                clickToSelect: true,
+                toolbar: "#toolbar",
+                columns: [
+                    {
+                        title: '序號',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return index + 1;
+                        }
+                    },
+                  {
+                      title: '工號',
+                      field: 'UserId',
+                      align: 'center',
+                      valign: 'middle',
+
+                  },
+                  {
+                      title: '姓名',
+                      field: 'UserName',
+                      align: 'center',
+                      valign: 'middle',
+
+                  },
+                  {
+                      title: '部門',
+                      field: 'UserBu',
+                      align: 'center',
+                      valign: 'middle',
+
+                  },
+                  {
+                      title: '刪除',
+                      field: '',
+                      align: 'center',
+                      valign: 'middle',
+                      formatter: function (value, row, index) {
+                          return d = "<button type=\"button\" onclick=\"Del('" + row.UserId + "','" + $("#RoleId").val() + "')\">刪除</button>";
+                      }
+                  }
+                ],
+                data: [],
+            });
+            $("#table2").bootstrapTable({
+                method: 'get',
+                cache: false,
+                height: 500,
+                striped: true,
+                pagination: true,
+                pageSize: 10,
+                pageNumber: 1,
+                pageList: [10, 20, 50],
+                sidePagination: 'client',
+                search: true,
+                showExport: false,
+                exportTypes: ['csv', 'txt', 'xml'],
+                //clickToSelect: true,
+                toolbar: "#toolbar2",
+                columns: [
+                    {
+                        title: '序號',
+                        align: 'center',
+                        valign: 'middle',
+                        checkbox:true,
+                    },
+                  {
+                      title: '工號',
+                      field: 'UserId',
+                      align: 'center',
+                      valign: 'middle',
+
+                  },
+                  {
+                      title: '姓名',
+                      field: 'UserName',
+                      align: 'center',
+                      valign: 'middle',
+
+                  },
+                  {
+                      title: '部門',
+                      field: 'UserBu',
+                      align: 'center',
+                      valign: 'middle',
+
+                  },
+                ],
+                data: [],
+            });
+            $.ajax({
+                url: "/SYS/ProgramUser/GetRoleNameList",
+                type: "POST",
+                data: {
+                },
+                cache: false,
+                async: false,
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        //alert(data[i].RoleName);
+                        var li = document.createElement("li");
+                        li.className = "list-group-item RoleName";
+                        li.value = data[i].ProgramId;
+                        li.style.textAlign = "center";
+                        li.innerHTML = data[i].ProgramName;
+                        var roleNameList = document.getElementById("RoleNameList");
+                        roleNameList.appendChild(li);
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                }
+            }, JSON);
+        }
+        function getHasRole(roleId)
+        {
+            var datas=[];
+            $.ajax({
+                url: "/SYS/ProgramUser/GetHasRoleUserList",
+                type: "POST",
+                data: {
+                    RoleId:roleId
+                },
+                cache: false,
+                async: false,
+                success: function (data) {
+                    //datas=data;
+                    for (var i = 0; i < data.length; i++) {
+                        datas[i] = data[i];
+                        //alert(datas);
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                }
+            }, JSON);
+            return datas;
+        }
+        function getNoRole(roleId)
+        {
+            var datas=[];
+            $.ajax({
+                url: "/SYS/ProgramUser/GetNoRoleUserList",
+                type: "POST",
+                data: {
+                    RoleId: roleId
+                },
+                cache: false,
+                async: false,
+                success: function (data) {
+                    //datas=data;
+                    for (var i = 0; i < data.length; i++) {
+                        datas[i] = data[i];
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                }
+            }, JSON);
+            return datas;
+        }
+        function Del(empNo,roleId) {
+            if(confirm("確定要清空工號為："+empNo+"的角色")){
+                $.ajax({
+                    url: "/SYS/ProgramUser/ProgramUserDel",
+                    type: "POST",
+                    data: {
+                        EmpNo: empNo,
+                        RoleId:roleId
+                    },
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                        $("#table1").bootstrapTable("load", getHasRole($("#RoleId").val()));
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                }, JSON);
+             }
+        }
+    </script>
+
+    <div style="width:100%;height:100%">
+        <div style="width:1035px;height:100%;margin:0 auto">
+            <div style="width:225px;float:left">
+                <ul class="list-group" id="RoleNameList">
+                    @*<li class="list-group-item RoleName" value="1" style="text-align:center" >ces</li>
+                        <li class="list-group-item RoleName" value="2">測試</li>
+                        <li class="list-group-item RoleName" value="3">test</li>
+                        <li class="list-group-item RoleName" value="4">Tes</li>*@
+                </ul>
+            </div>
+            <div style="width:800px;float:left;border:1px solid #eeede7;margin-left:8px">
+                <div hidden="hidden" id="roletable">
+                    <toolbar id="toolbar">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button>
+                        <label id="Role2" style="margin-left:291px;color:#ff6a00;font-size:16px"></label>
+                    </toolbar>
+                    <div id="div1">
+                        <table id="table1"></table>
+                    </div>
+                </div>
+                <!--模態框(modal add)-->
+                @*<form class="form-horizontal" id="form1">*@
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                       
+                        <div class="modal-dialog" style="height:auto;width:795px">
+                            <div class="modal-content form-horizontal">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h3 class="modal-title" id="myModalLabel"><strong>用戶角色分配</strong></h3>
+                                    <input id="RoleId" name="RoleId" value="" type="hidden" />
+                                </div>
+                                <div class="col-sm-12 modal-body">
+                                    <toolbar id="toolbar2">
+                                        <button type="button" class="btn btn-primary" id="RoleDistribute">添加</button>
+                                    </toolbar>
+                                    <div id="div2">
+                                        <table id="table2"></table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal -->
+                    </div>
+                @*</form>*@
+                <!--模態框結束-->
+            </div>
+        </div>
+    </div>
+
+
+
+

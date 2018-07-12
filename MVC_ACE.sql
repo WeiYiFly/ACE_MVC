@@ -1,5 +1,13 @@
 Create database ACE_MVC
 
+create table SYS_UserSYS_Program
+(
+Id int primary key identity(1,1),
+SYS_UserID varchar(30),
+SYS_ProgramID int,
+
+)
+
 create table SYS_Program
 (
 Id int primary key identity(1,1),

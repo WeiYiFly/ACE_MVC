@@ -12,17 +12,10 @@ namespace MVC_DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class SYS_Module
+    public partial class SYS_UserSYS_Program
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Lv { get; set; }
-        public string Controller { get; set; }
-        public string View_ { get; set; }
-        public string Url { get; set; }
-        public string Icon { get; set; }
-        public Nullable<int> UpId { get; set; }
-        public Nullable<int> ProgramId { get; set; }
-        public int SYS_ProgramId { get; set; }
+        public string SYS_UserID { get; set; }
+        public Nullable<int> SYS_ProgramID { get; set; }
     }
 }
