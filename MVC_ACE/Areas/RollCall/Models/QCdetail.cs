@@ -30,6 +30,6 @@ namespace MVC_ACE.Areas.RollCall.Models
         public int timeOne1 { get; set; }//預報加班人數
         public double time2 { get; set; }//實際加班時數
         public int timeOne2 { get; set; }//實際加班人數
-        public double timeOne { get; set; }//實際/預報時數對比
+        public string timeOne { get; set; }//實際/預報時數對比
     }
 }

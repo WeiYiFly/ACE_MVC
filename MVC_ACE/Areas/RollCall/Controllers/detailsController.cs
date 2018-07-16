@@ -160,7 +160,12 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                     if (dt.Rows[0][13] != null && dt.Rows[0][13].ToString() != "")
                         qcdetail.time2 = double.Parse(dt.Rows[0][13].ToString());
                     qcdetail.timeOne2 = int.Parse(dt.Rows[0][14].ToString());
-                    qcdetail.timeOne = 0;
+                    //qcdetail.timeOne = 0;
+                    //預報加班比=（預報-實報）/預報
+                    if (qcdetail.time1 != 0)
+                        qcdetail.timeOne = Math.Round(((qcdetail.time1 - qcdetail.time2) / qcdetail.time1 * 100),2).ToString() + "%";
+                    else
+                        qcdetail.timeOne = "0%";
                     qcdetails.Add(qcdetail);
                     #endregion
                  
@@ -179,7 +184,7 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                 }
                 if (power_.QC != "Y" && power_.BUx.Length <= 6)
                 {
-                    return RedirectToAction("../../details/BUdetail/" + power_.BUx + ",0");
+                    return RedirectToAction("../../RollCall/details/BUdetail/" + power_.BUx + "/,0");
                 }
                 #region   個部門的出勤情況 EF
                 /**
@@ -387,7 +392,11 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                     if (dt.Rows[0][13] != null && dt.Rows[0][13].ToString() != "")
                         qcdetail_.time2 = double.Parse(dt.Rows[0][13].ToString());
                     qcdetail_.timeOne2 = int.Parse(dt.Rows[0][14].ToString());
-                    qcdetail_.timeOne = 0;
+                  
+                    if (qcdetail_.time1 != 0)
+                        qcdetail_.timeOne = Math.Round(((qcdetail_.time1 - qcdetail_.time2) / qcdetail_.time1 * 100),2).ToString() + "%"; 
+                    else
+                        qcdetail_.timeOne = "0%";
                     qcdetails.Add(qcdetail_);
 
                 }
@@ -538,7 +547,11 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                 if (dt.Rows[0][13] != null && dt.Rows[0][13].ToString() != "")
                     qcdetail.time2 = double.Parse(dt.Rows[0][13].ToString());
                 qcdetail.timeOne2 = int.Parse(dt.Rows[0][14].ToString());
-                qcdetail.timeOne = 0;
+             
+                if (qcdetail.time1 != 0)
+                    qcdetail.timeOne = Math.Round(((qcdetail.time1 - qcdetail.time2) / qcdetail.time1 * 100),2).ToString() + "%";
+                else
+                    qcdetail.timeOne = "0%";
                 qcdetails.Add(qcdetail);
                 #endregion
             }
@@ -848,7 +861,11 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                 if (dt.Rows[0][13] != null && dt.Rows[0][13].ToString() != "")
                     BUdetail.time2 = double.Parse(dt.Rows[0][13].ToString());
                 BUdetail.timeOne2 = int.Parse(dt.Rows[0][14].ToString());
-                BUdetail.timeOne12 = 0;
+              
+                if (BUdetail.time1 != 0)
+                    BUdetail.timeOne12 = Math.Round(((BUdetail.time1 - BUdetail.time2) / BUdetail.time1 * 100),2).ToString() + "%";
+                else
+                    BUdetail.timeOne12 = "0%";
                 list_budetail_total.Add(BUdetail);
             }
             #endregion
@@ -925,7 +942,11 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                     if (dt.Rows[0][13] != null && dt.Rows[0][13].ToString() != "")
                         BUdetail.time2 = double.Parse(dt.Rows[0][13].ToString());
                     BUdetail.timeOne2 = int.Parse(dt.Rows[0][14].ToString());
-                    BUdetail.timeOne12 = 0;
+                  
+                    if (BUdetail.time1 != 0)
+                        BUdetail.timeOne12 =  Math.Round(((BUdetail.time1 - BUdetail.time2) / BUdetail.time1 * 100),2).ToString() + "%";
+                    else
+                        BUdetail.timeOne12 = "0%";
                     if (BUdetail.yd == 0) continue;
                     list_budetails.Add(BUdetail);
                 }
