@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+@using MVC_ACE.Models;
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>ChoosePro</title>
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <style>
+        .width1 {
+            width: 80%;
+            font-size: 25px;
+            background-color: #33a3dc;
+        }
+
+        .color {
+            font-size: 25px;
+            width: 80%;
+        }
+    </style>
+    <script>
+        $(function () {
+            $(".width1").click(function () {
+               
+                var url = $(this).attr("url")
+                window.location.href = url;
+
+            })
+
+
+        });
+
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid" style="text-align:center">
+        <br /><br /><br /><br />
+        <div>@foreach(ChoosePro cp in (List<ChoosePro>)ViewData["ChoosePro"])
+            { 
+            <input id="@cp.Id" type="button" value="@cp.Name" class="btn btn-info btn-lg width1" url="@cp.Url"/><br /><br />
+          
+            }
+        </div>
+    </div>
+</body>
+</html>

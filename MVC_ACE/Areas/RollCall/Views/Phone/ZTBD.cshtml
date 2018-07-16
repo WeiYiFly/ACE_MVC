@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = null;
+}
+@using RollCall.Model;
+@using MVC_ACE.Areas.RollCall.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <title>ZTBD</title>
+    <script>
+
+        $(function () {
+            $("td input[type='button']").each(function () {
+                var state = $(this).attr("statenaem")
+                var uname = $(this).attr("uname")
+                if (state.trim() == "出勤") {
+                    $(this).addClass("btn btn-primary btn-lg");
+                }
+                if (state.trim() == "缺勤") {
+                    $(this).addClass("btn btn-warning btn-lg");
+                }
+                if (state.trim() == "中途離開") {
+                    $(this).addClass("btn btn-warning btn-lg");
+                }
+                if (state.trim() == "中途上班") {
+                    $(this).addClass("btn btn-primary btn-lg");
+                }
+
+
+                
+            });
+
+            $("td input").click(
+                function () {
+                    var name = $(this).attr("uname")
+                    var state = $(this).attr("statenaem")
+                    //alert(state)
+                    if (state.trim() == "出勤")
+                    {
+                        $(this).removeClass("btn btn-primary btn-lg");
+                        $(this).addClass("btn btn-warning btn-lg");
+                        $(this).attr("statenaem", "中途離開");
+                        $(this).val(name + " 中途離開");
+
+                    }
+                    if (state.trim() == "缺勤") {                       
+                        $(this).removeClass("btn btn-warning btn-lg");
+                        $(this).addClass("btn btn-primary btn-lg");
+                        $(this).attr("statenaem", "中途上班");
+                        $(this).val(name + " 中途上班");
+                    }
+                    if (state.trim() == "中途離開") {
+                        $(this).removeClass("btn btn-warning btn-lg");
+                        $(this).addClass("btn btn-primary btn-lg");
+                        $(this).attr("statenaem", "出勤");
+                        $(this).val(name + " 出勤");
+
+                    }
+                    if (state.trim() == "中途上班") {    
+                        $(this).removeClass("btn btn-primary btn-lg");
+                        $(this).addClass("btn btn-warning btn-lg");
+                        $(this).attr("statenaem", "缺勤");
+                        $(this).val(name + " 缺勤");
+                    }
+            })
+
+            $("#submit").click(
+                function () {
+                    var ustate = "";
+                    $("td input[type='button']").each(function () {
+                        ustate += $(this).attr("name") + " " + $(this).attr("statenaem") + ",";
+                    });
+                   // alert(ustate)
+                    $.post("/Phone/ZTBDSubmit/state2", { aa: ustate }, function () {
+                        alert("數據提交成功 OK")
+                        window.location.href = "/RollCall/Phone/Index";
+                    })
+                })
+
+        })
+    </script>
+</head>
+<body>
+
+    <form id="form1">
+        <div class="row ">
+            @*<label ID="Label1" class="col-xs-12" Font-Size="X-Large" style="text-align:center">
+                @foreach (Staff s in (List<Staff>)ViewData["Users"])
+            {   @s.LINENAME @ViewData["CLASS"].ToString() @s.POSITION   @s.NAME
+
+                }點名中
+            </label>*@
+
+        </div>
+        <br/><br />
+        <div class="container-fluid">
+            <div class="row">
+                <Table ID="HolderTable" class="table table-condensed table-striped  textcenter">
+                    @*<tr><td><input  type="button" value="名字" class="btn btn-info btn-lg btn-block" /></td></tr>*@
+                    @foreach (CallName s in (List<CallName>)ViewData["CallName_Models"])
+                    {
+                        <tr><td><input type="button" value="@s.NAME  @s.STATE " uname="@s.NAME" name="@s.ID" statenaem="@s.STATE" class="btn btn-info btn-lg btn-block" /></td></tr>
+                    }
+                </Table>
+            </div>
+
+            <div class="row ">
+
+                <input id="submit" type="button" value="提交并返回" class="btn btn-success btn-lg btn-block" /><br /><br />
+            </div>
+
+        </div>
+        <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+@using RollCall.Model;
+@using MVC_ACE.Areas.RollCall.Models
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <title>AddWeekWork</title>
+    <script>
+
+    $(function () {
+        $("#setwork").click(
+                function () {
+                    var input6 = document.getElementsByClassName("col-xs-12 form-control jb6")
+                    var input7 = document.getElementsByClassName("col-xs-12 form-control jb7")
+                        var jb6 = document.getElementById("set6").value
+                        var jb7 = document.getElementById("set7").value
+                    //alert(jb)
+                        if (jb6 != "") {
+                            for (i = 0; i < input6.length; i++) {
+                                input6[i].value = jb6;
+                            }
+                        }
+                        if (jb7!=""){
+                            for (i = 0; i < input7.length; i++){
+                                    input7[i].value = jb7;
+                             }
+                        }
+                })
+        //提交
+        $("#submit").click(
+              function () {
+                  var ustate6 = "";
+                  var ustate7 = "";
+                  var number = 0;
+                  var input6 = document.getElementsByClassName("col-xs-12 form-control jb6")
+                  var input7 = document.getElementsByClassName("col-xs-12 form-control jb7")
+                  $(input6).each(function () {
+                      ustate6 += $(this).attr("uid") + " " + this.value + ",";
+                  });
+                  $(input7).each(function () {
+                      ustate7 += $(this).attr("uid") + " " + this.value + ",";
+                  });
+                 // alert(ustate6);
+                  //alert(ustate7);
+
+                  $.post("/Phone/AddWorkSubmit/Week", { aa6: ustate6 ,aa7: ustate7}, function () {
+                      alert("週末預報加班成功 OK")
+                      window.location.href = "/RollCall/Phone/Index";
+                  })
+              })
+
+    })
+        function checkNum(obj) {
+            if (isNaN(obj.value)) {
+                obj.value = "";
+            }
+            if (obj.value > 30)
+            {
+                obj.value = "";
+            }
+        }
+    </script>
+
+
+</head>
+<body>
+
+    <form id="form1">
+        <div class="row ">
+            <label ID="Label1" class="col-xs-12" Font-Size="X-Large" style="text-align:center">
+                週末預報加班工時
+            </label>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <Table ID="HolderTable" class="table table-condensed table-striped  textcenter">
+                    <tr>
+                        <td><label ID="Label1" class="col-xs-12 label label-info td-label-info l" style="text-align:center;font-size:20px">名字</label></td>
+                        <td><label ID="Label1" class="col-xs-12 label  label-info" style="text-align:center;font-size:20px">星期六</label></td>
+                        <td><label ID="Label1" class="col-xs-12 label  label-info" style="text-align:center;font-size:20px">星期日</label></td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="button" value="設置加班 " id="setwork" class="btn btn-warning  col-xs-12" /></td>
+                        <td><input id="set6" type="text" class="col-xs-12 form-control" onkeyup="checkNum(this);" /></td>
+                        <td><input id="set7" type="text" class="col-xs-12 form-control" onkeyup="checkNum(this);" /></td>
+                    </tr>
+                    @foreach (CallName s in (List<CallName>)ViewData["CallName"])
+                     {
+                        <tr>
+                            <td><input type="button" value="@s.NAME " ustate="" class="btn btn-info  col-xs-12" /></td>
+                            <td><input uid="@s.ID" type="text" value="@s.STATE" class="col-xs-12 form-control jb6" onkeyup="checkNum(this);" /></td>
+                            <td><input uid="@s.ID" type="text" value="@s.STATE1" class="col-xs-12 form-control jb7" onkeyup="checkNum(this);" /></td>
+                        </tr>
+                    }
+                </Table>
+            </div>
+
+            <div class="row ">
+
+                <input id="submit" type="button" value="提交并返回" class="btn btn-success btn-lg btn-block" /><br /><br />
+            </div>
+
+        </div>
+        <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    </form>
+
+</body>
+</html>

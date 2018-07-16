@@ -17,8 +17,8 @@ namespace MVC_ACE
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                   //defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-                   defaults: new {Areas= "SYS/Program/jqGrid", controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
+                   //defaults: new {Areas= "SYS/Program/jqGrid", controller = "Home", action = "Index", id = UrlParameter.Optional }
             //  new { area = "SYS", controller = "Home", action = "Index", id = UrlParameter.Optional },
             // new string[] { "MVC_ACE.Areas." + this.AreaName + ".Controllers" }
             );

@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <title>Index</title>
+    <style>
+        .width1 {
+            width: 80%;
+            font-size: 25px;
+            background-color: #33a3dc;
+        }
+
+        .color {
+            font-size: 25px;
+            width: 80%;
+        }
+        .a {
+            font-size:30px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#CallName").click(function () {
+              //  var mydate = new Date();
+              //var h=  mydate.getHours(); //获取当前小时数(0-23)
+              //var m = mydate.getMinutes(); //获取当前分钟数(0-59)
+              //if (h < 8) {
+              //    if (h = 8 && m <= 30)
+                      window.location.href = "/RollCall/Phone/CallName";
+              //    else
+              //    alert("已超過8：30不可再更改點名了");
+              //}
+              //else {
+
+              //    alert("已超過8：30不可再更改點名了");
+              //}
+
+
+            })
+            $("#CallNameReason").click(function () {
+                //var mydate = new Date();
+                //var h=  mydate.getHours(); //获取当前小时数(0-23)
+                //var m = mydate.getMinutes(); //获取当前分钟数(0-59)
+                //if (h < 9) {
+                //    if (h = 9 && m <= 30)
+                window.location.href = "/RollCall/Phone/CallNameReason";
+                //    else
+                //        alert("已超過9：30不可再更改缺勤處理了");
+                //}
+                //else {
+                //    alert("已超過9：30不可再更改缺勤處理了");
+                //}
+            })
+
+            $("#ZTBD").click(function () {
+                window.location.href = "/RollCall/Phone/ZTBD";
+            })
+            $("#ZTBDYY").click(function () {
+                window.location.href = "/RollCall/Phone/ZTBDYY";
+            })
+            $("#AddWork").click(function () {
+                window.location.href = "/RollCall/Phone/AddWork";
+            })
+            $("#Details").click(function () {
+                window.location.href = "/RollCall/Details/xzdetail";
+            })
+        });
+
+    </script>
+
+</head>
+<body>
+    <form id="form1">
+        <div class="container-fluid" style="text-align:center">
+            <br /><br />
+            <label ID="Label1" Font-Size="X-Large" class="a">手機點名系統</label>
+
+            <br /><br />
+            <input id="CallName" type="button" value="人員點名" class="btn btn-info btn-lg width1" /><br /><br />
+            <input id="CallNameReason" type="button" value="缺勤處理" class="btn btn-info btn-lg width1" /><br /><br />
+            <input id="ZTBD" type="button" value="人員變動" class="btn btn-info btn-lg width1" /><br /><br />
+            <input id="ZTBDYY" type="button" value="變動原因" class="btn btn-info btn-lg width1" /><br /><br />
+            <input id="AddWork" type="button" value="預報加班" class="btn btn-info btn-lg width1" /><br /><br />
+            <input id="Details" type="button" value="出勤明細" class="btn btn-primary btn-lg color" /><br /><br />
+
+
+        </div>
+
+    </form>
+</body>
+</html>

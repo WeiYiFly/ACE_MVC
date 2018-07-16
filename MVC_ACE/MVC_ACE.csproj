@@ -84,6 +84,26 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RollCall.BLL">
+      <HintPath>..\packages\RollCall\RollCall.BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="RollCall.DAL">
+      <HintPath>..\packages\RollCall\RollCall.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="RollCall.DALFactory">
+      <HintPath>..\packages\RollCall\RollCall.DALFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="RollCall.IBLL">
+      <HintPath>..\packages\RollCall\RollCall.IBLL.dll</HintPath>
+    </Reference>
+    <Reference Include="RollCall.IDAL">
+      <HintPath>..\packages\RollCall\RollCall.IDAL.dll</HintPath>
+    </Reference>
+    <Reference Include="RollCall.Model">
+      <HintPath>..\packages\RollCall\RollCall.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -966,6 +986,7 @@
     <Content Include="ace\mustache\js\index.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\logo1.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1230,6 +1251,7 @@
     <Content Include="Areas\SYS\Views\User\Index.cshtml" />
     <Content Include="Areas\SYS\Views\ProgramUser\Index.cshtml" />
     <Content Include="Areas\SYS\Views\RolePermission\Index.cshtml" />
+    <Content Include="scripts\Bootstrap\bootstrap.css" />
     <Content Include="scripts\Bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="scripts\Bootstrap\css\bootstrap-theme.min.css.map" />
     <Content Include="scripts\Bootstrap\css\bootstrap.css.map" />
@@ -1238,6 +1260,28 @@
     <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="scripts\Bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="scripts\fontawesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="scripts\fontawesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="scripts\fontawesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="scripts\fontawesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="scripts\fontawesome\fonts\FontAwesome.otf" />
+    <Content Include="Areas\RollCall\Views\Web.config" />
+    <Content Include="Areas\RollCall\Views\Index\Index.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\CallName.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\Index.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\CallNameSelectClass.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\CallNameReason.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\AddWeekWork.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\AddWork.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\Details.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\ZTBD.cshtml" />
+    <Content Include="Areas\RollCall\Views\Phone\ZTBDYY.cshtml" />
+    <Content Include="Areas\RollCall\Views\details\BUdetail.cshtml" />
+    <Content Include="Areas\RollCall\Views\details\QCdetail.cshtml" />
+    <Content Include="Areas\RollCall\Views\details\QCdetailBW.cshtml" />
+    <Content Include="Areas\RollCall\Views\details\qqdetail.cshtml" />
+    <Content Include="Areas\RollCall\Views\details\xzdetail.cshtml" />
+    <Content Include="Areas\RollCall\Views\details\xzdetail2.cshtml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\Bootstrap\css\bootstrap-datetimepicker.min.css" />
     <Content Include="scripts\Bootstrap\css\bootstrap-table.css" />
@@ -1262,6 +1306,12 @@
     <Content Include="scripts\Bootstrap\js\jquery-2.0.3.min.js" />
     <Content Include="scripts\Bootstrap\js\jquery-ui-1.10.0.custom.min.js" />
     <Content Include="scripts\Bootstrap\js\npm.js" />
+    <Content Include="scripts\CSS\app.css" />
+    <Content Include="scripts\CSS\bootstrap.css" />
+    <Content Include="scripts\CSS\font-awesome.min.css" />
+    <Content Include="scripts\CSS\simple-line-icons.css" />
+    <Content Include="scripts\fontawesome\css\font-awesome.min.css" />
+    <Content Include="scripts\fontawesome\fonts\fontawesome-webfont.svg" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\jquery-2.0.3.min.js" />
@@ -1269,17 +1319,36 @@
     <Content Include="scripts\js\jquery-2.0.3.min.js" />
     <Content Include="scripts\js\json2.js" />
     <Content Include="scripts\js\laydate.js" />
+    <Content Include="scripts\js\Login.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\simple-line-icons\css\simple-line-icons.css" />
+    <Content Include="scripts\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\RollCall\Common\DetailsCommon.cs" />
+    <Compile Include="Areas\RollCall\Common\PhoneCommon.cs" />
+    <Compile Include="Areas\RollCall\Common\SQLHelper.cs" />
+    <Compile Include="Areas\RollCall\Controllers\BasePhoneController.cs" />
+    <Compile Include="Areas\RollCall\Controllers\detailsController.cs" />
+    <Compile Include="Areas\RollCall\Controllers\IndexController.cs" />
+    <Compile Include="Areas\RollCall\Controllers\PhoneController.cs" />
+    <Compile Include="Areas\RollCall\Models\BUdetail.cs" />
+    <Compile Include="Areas\RollCall\Models\CallName.cs" />
+    <Compile Include="Areas\RollCall\Models\Class1.cs" />
+    <Compile Include="Areas\RollCall\Models\Department.cs" />
+    <Compile Include="Areas\RollCall\Models\QCdetail.cs" />
+    <Compile Include="Areas\RollCall\Models\qqdetail.cs" />
+    <Compile Include="Areas\RollCall\Models\xzdetail.cs" />
+    <Compile Include="Areas\RollCall\RollCallAreaRegistration.cs" />
     <Compile Include="Areas\SYS\Common\Module.cs" />
     <Compile Include="Areas\SYS\Common\Program.cs" />
     <Compile Include="Areas\SYS\Common\Role.cs" />
     <Compile Include="Areas\SYS\Common\User.cs" />
+    <Compile Include="Areas\SYS\Controllers\IndexController.cs" />
     <Compile Include="Areas\SYS\Controllers\ModuleController.cs" />
     <Compile Include="Areas\SYS\Controllers\ProgramController.cs" />
     <Compile Include="Areas\SYS\Controllers\ProgramUserController.cs" />
@@ -1295,6 +1364,7 @@
     <Compile Include="Models\AceTree.cs" />
     <Compile Include="Models\AceTreeItem.cs" />
     <Compile Include="Models\AdditionalParameters.cs" />
+    <Compile Include="Models\ChoosePro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1308,6 +1378,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="scripts\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="scripts\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="scripts\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Views\Home\ChoosePro.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1317,16 +1392,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\RollCall\Content\" />
+    <Folder Include="Areas\RollCall\Views\BasePhone\" />
+    <Folder Include="Areas\SYS\Views\Home\" />
+    <Folder Include="Areas\SYS\Views\Index\" />
     <Folder Include="Areas\SYS\Views\Test\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MVC_DATA\MVC_DATA.csproj">
-      <Project>{BDA7ACAC-B3FC-4E28-8753-C5DF2002515A}</Project>
-      <Name>MVC_DATA</Name>
-    </ProjectReference>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\MVC_DATA\MVC_DATA.csproj">
+      <Project>{bda7acac-b3fc-4e28-8753-c5df2002515a}</Project>
+      <Name>MVC_DATA</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

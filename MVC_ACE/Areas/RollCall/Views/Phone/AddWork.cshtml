@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+@using RollCall.Model;
+@using MVC_ACE.Areas.RollCall.Models
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <title>AddWork</title>
+    <script>
+
+    $(function () {
+       
+        //隱藏週末加班的DIV
+        $("#week67").hide();
+        var day = new Date();
+        if (day.getDay() == 5)
+        {
+            $("#week67").show();
+        }
+       
+
+        $("#setwork").click(
+                function () {
+                  
+                    
+                        var input = document.getElementsByClassName("col-xs-12 form-control jb")
+                        var jb = document.getElementById("set").value
+                    //alert(jb)
+                       if (jb!=""){
+                            for (i = 0; i < input.length; i++){
+                           // alert(input[1].type)
+                            input[i].value = jb;
+                            }
+                        }
+                })
+        //提交
+        $("#submit").click(
+              function () {
+                  var ustate = "";
+                  var number = 0;
+                  $("td input[type='text']").each(function () {
+                      if (number != 0) //過濾設置加班的欄位
+                      {
+                          ustate+=$(this).attr("id")+" "+this.value+",";
+                      }
+                      number++;
+                  });
+                  //alert(ustate);
+
+                  $.post("/Phone/AddWorkSubmit", { aa: ustate }, function () {
+                      alert("預報加班成功 OK")
+                      window.location.href = "/RollCall/Phone/Index";
+                  })
+              })
+        $("#addweek").click(
+             function () {
+              
+                 window.location.href = "/RollCall/Phone/AddWeekWork";
+                 })
+           
+        
+
+    })
+        function checkNum(obj) {
+            if (isNaN(obj.value)) {
+                obj.value = "";
+            }
+            if (obj.value > 30)
+            {
+                obj.value = "";
+            }
+        }
+    </script>
+
+   
+</head>
+<body>
+
+    <form id="form1">
+        <div class="row ">
+            <label ID="Label1" class="col-xs-12" Font-Size="X-Large" style="text-align:center">
+                預報加班工時
+            </label>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <Table ID="HolderTable" class="table table-condensed table-striped  textcenter">
+                    <tr>
+                        <td><label ID="Label1" class="col-xs-12 label label-info td-label-info l"  style="text-align:center;font-size:20px">名字</label></td>
+                        <td><label ID="Label1" class="col-xs-12 label  label-info"  style="text-align:center;font-size:20px">預報加班工時</label></td>                        
+                    </tr>
+               
+                    <tr>
+                        <td><input type="button" value="設置加班 " id="setwork" class="btn btn-warning  col-xs-12" /></td>
+                        <td><input id="set" type="text" class="col-xs-12 form-control" onkeyup="checkNum(this);"/></td>
+                    </tr>
+                    @foreach (CallName s in (List<CallName>)ViewData["CallName"])
+                    {
+                    @*@for(int a=0;a<10;a++)*@
+
+                        <tr>
+                            @*<td><input type="button" value="@s.NAME" uname="@s.NAME" name="@s.ID" statenaem="@s.STATE" class="btn btn-info btn-lg " /></td>*@
+                            <td><input type="button" value="@s.NAME " ustate="" class="btn btn-info  col-xs-12" /></td>
+                            <td><input id="@s.ID" type="text"  value="@s.STATE" class="col-xs-12 form-control jb" onkeyup="checkNum(this);"/></td> 
+                        </tr>
+                    }
+                </Table>
+            </div>
+            <div class="row week" id="week67" >
+                <input id="addweek" type="button" value="週末預報加班" class="btn btn-success btn-lg btn-block" /><br />
+            </div>
+            <div class="row ">
+                <input id="submit" type="button" value="提交并返回" class="btn btn-success btn-lg btn-block" /><br /><br />
+            </div>
+
+        </div>
+        <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    </form>
+
+</body>
+</html>

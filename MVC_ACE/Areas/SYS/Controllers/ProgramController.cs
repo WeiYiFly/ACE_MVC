@@ -78,7 +78,7 @@ namespace MVC_ACE.Areas.SYS.Controllers
         }
         public ActionResult GetProgram()
         {
-            var program=Database.SYS_Program.Where(u =>u.Del!="" ).ToList();
+            var program=Database.SYS_Program.Where(u =>u.Del!="Y" ).ToList();
             var jsonResult= Json(program, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;

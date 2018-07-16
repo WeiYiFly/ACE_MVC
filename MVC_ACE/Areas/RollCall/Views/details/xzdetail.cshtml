@@ -1,0 +1,248 @@
+﻿
+@{
+    Layout = null;
+}
+@using MVC_ACE.Areas.RollCall.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    
+    <link href="~/scripts/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <title>xzdetail</title>
+    <style>
+ .width1 {
+            width: 80%;
+            font-size: 25px;
+            background-color: #33a3dc;
+        }
+ .color {
+            font-size: 25px;
+            width: 80%;
+        }
+ .table th, .table td {  
+text-align: center;  
+vertical-align: middle!important;
+ border: 1px solid #000 !important;  
+}  
+.btn-mycolor {
+
+  background-color:#FFEBCD;
+  border-color: #FFEBCD;
+}
+
+.mycolor
+{
+  background-color: #FFEBCD  ;
+}
+  .table-bordered th,  
+  .table-bordered td {  
+    border: 1px solid #000 !important;  
+  }
+.textcenter {
+    text-align: center;
+        }
+    
+    </style>
+    <script>
+        
+        $(function () {
+            $("#up").click(
+              function () {
+                  var date = $("#SearchDate").attr("text");
+                 // alert(date);
+                  date = date - 1;
+                  $("#SearchDate").attr("text",date);
+                  window.location.href = "/RollCall/details/xzdetail/" + date;
+              })
+
+            $("#last").click(
+            function () {
+                var date = $("#SearchDate").attr("text");
+                //Number aa = date;
+                //alert(date);
+                date = parseInt(date) + 1;
+                $("#SearchDate").attr("text", date);
+                window.location.href = "/RollCall/details/xzdetail/" + date;
+            })
+            $("#submit").click(
+           function () {
+               var date = $("#RData").attr("values");
+           // alert(date)
+              // $("#RData").attr("values", date);
+              // window.location.href = "/details/xzdetail/" + date;
+           })
+            
+
+            $("#return").click(
+            function () {          
+                window.location.href = "/RollCall/Phone/index";
+         })
+
+        })
+
+        function checkNum(obj) {
+       
+            if (isNaN(obj.value)) {
+                obj.value = "";
+            }
+            
+        }
+            
+
+
+        
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row textcenter">
+           <Label ID="Label1" Text="Test_Test" class="col-xs-12 textcenter" Font-Size="X-Large" > @ViewData["Date"]</Label>
+        </div>
+
+       
+        <table id="HolderTable" class="table table-bordered table-condensed">
+            <tr class="mycolor">
+                <td rowspan="2">工號</td>
+                <td rowspan="2">姓名</td>
+                <td rowspan="2">出勤</td>
+                <td colspan="4">缺勤</td>
+
+
+                <td colspan="4">中途變動</td>
+                <td rowspan="2">預報加班</td>
+            </tr>
+
+            <tr class="mycolor">
+                <td>遲到</td>
+                <td>請假</td>
+                <td>曠工</td>
+                <td>其他</td>
+                <td>中途上班</td>
+                <td>早退</td>
+                <td>請假</td>
+                <td>曠工</td>
+            </tr>
+            @*@for (int a = 0; a < 10; a++)*@
+            @foreach (xzdetail a in (List<xzdetail>)ViewData["list_xzdetail"])
+            {
+                <tr>
+                    <td class="mycolor">@a.ID</td>
+                    <td class="mycolor">@a.NAME</td>
+                    @if (a.cq)
+                    {
+                        <td><span class="glyphicon  glyphicon-ok" aria-hidden="true" style=""></span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+                    @if (a.cd == "遲到")
+                    {
+                        <td><span>@a.cd</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+
+                    @if (a.qj == "請假")
+                    {
+                        <td><span>@a.qj</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+
+                    @if (a.kg == "曠工")
+                    {
+                        <td><span>@a.kg</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+                    <td><span>@a.qt</span></td>
+                    @if (a.zsb == "中途上班")
+                    {
+                        <td><span>@a.zsb</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+
+                    @if (a.zzt == "早退")
+                    {
+                        <td><span>@a.zzt</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+
+                    @if (a.zqj == "請假")
+                    {
+                        <td><span>@a.zqj</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+
+                    @if (a.ztx == "調休")
+                    {
+                        <td><span>@a.ztx</span></td>
+                    }
+                    else
+                    {
+                        <td> <span></span></td>
+                    }
+
+
+                    <td> <span>@a.time1</span></td>
+
+
+
+                </tr>
+            }
+
+
+        </table>
+      
+            <div class="row">
+                <form method="post" action="/RollCall/details/xzdetail" class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <table style="text-align:center;width:100%">
+                                <tr wit>
+                                    <td><label class="col-ml-2 control-label">按輸入年月日期查詢</label></td>
+                                    <td><input type="text" maxlength="8" placeholder="輸入日期20180101" class="form-control" id="RData" name="RData" onkeyup="checkNum(this);"/></td>
+                                    <td><div class="col-ml-4"> <button type="submit" id="submit" class="btn btn-sm btn-default">搜索Search</button></div></td>
+                                </tr>
+                            </table>
+                            </div>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+           
+    <label id="SearchDate" text="@ViewData["date_int"]"></label>  
+        <div class="row">
+            <table style="width:100%;text-align:center">
+                <tr>
+                    <td><input type="button" ID="up" value="上一天" class="btn" @*style="float:left"*@ /></td>
+                    <td><input type="button" ID="return" value="返回" class="btn " />     </td>
+                    <td><input type="button" ID="last" value="下一天" @*style="float:right"*@ class="btn" /></td>
+                </tr>
+            </table>
+           
+        </div>
+
+</body>
+</html>

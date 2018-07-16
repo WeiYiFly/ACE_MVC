@@ -1,0 +1,119 @@
+﻿
+@{
+    Layout = null;
+}
+@using RollCall.Model;
+@using MVC_ACE.Areas.RollCall.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+   
+    <title>CallName</title>
+    <script>
+
+        $(function () {
+            var yd = $("#rs").attr("yd")
+            var sd = $("#rs").attr("sd")
+            $("#rs").text("應道"+yd+" 實到"+sd+"人")
+            $("td input[type='button']").each(function () {
+                var state = $(this).attr("statenaem")
+                var uname = $(this).attr("uname")
+                if (state.trim() != "不到") {
+                    $(this).addClass("btn btn-primary btn-lg");
+                }else
+               {
+                    $(this).addClass("btn btn-warning btn-lg");
+                }
+            });
+
+            $("td input").click(
+                function () {
+                    var name = $(this).attr("value")
+                    var uname = $(this).attr("uname")
+                    var state = name.substr(name.length - 4, name.length);
+                    //alert(state)
+                    var chilc = state.trim().indexOf("不到") == -1 ? false : true;
+
+                    if(!chilc){
+
+                        $(this).removeClass("btn btn-primary btn-lg");
+                        $(this).addClass("btn btn-warning btn-lg");
+                        $(this).val(uname + " 不到");
+                        var yd = $("#rs").attr("yd")
+                        var sd = $("#rs").attr("sd")
+                        sd = parseInt(sd) - 1
+                        $("#rs").attr("sd", sd);
+                        $("#rs").text("應道" + yd + " 實到" + sd + "人")
+                    }
+                    if (chilc) {
+
+                         $(this).removeClass("btn btn-warning btn-lg");
+                         $(this).addClass("btn btn-primary btn-lg");
+                         $(this).val(uname + "  到");
+                         var yd = $("#rs").attr("yd")
+                         var sd = $("#rs").attr("sd")
+                         sd = parseInt(sd) + 1
+                         $("#rs").attr("sd", sd);
+                         $("#rs").text("應道" + yd + " 實到" + sd + "人")
+
+                    }
+
+                });
+
+            $("#submit").click(
+                function () {
+                    var ustate = "";
+                    $("td input[type='button']").each(function () {
+                        ustate+=$(this).attr("name")+" "+this.value+",";
+                    });
+                    $.post("/Phone/CallNameSubmit", { aa: ustate }, function () {
+                        alert("數據提交成功 OK")
+                        window.location.href = "/RollCall/Phone/Index";
+                    })
+                })
+
+        })
+    </script>
+</head>
+<body>
+
+    <form id="form1">
+        <div class="row ">
+            <label ID="Label1" class="col-xs-12" Font-Size="X-Large" style="text-align:center">
+                @foreach (Staff s in (List<Staff>)ViewData["Users"])
+            {   @s.LINENAME @ViewData["CLASS"].ToString() @s.POSITION   @s.NAME
+
+                }點名中
+            </label>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <Table ID="HolderTable" class="table table-condensed table-striped  textcenter">
+                    @*<tr><td><input  type="button" value="名字" class="btn btn-info btn-lg btn-block" /></td></tr>*@
+                    @foreach (CallName s in (List<CallName>)ViewData["names"])
+                    {
+                        <tr><td><input type="button" value="@s.NAME  @s.STATE  " uname="@s.NAME" name="@s.ID" statenaem="@s.STATE" class="btn btn-info btn-lg btn-block" /></td></tr>
+                    }
+                    <tr><td><label id="rs" class="col-xs-12" Font-Size="X-Large" style="text-align:center" yd="@ViewData["YD"]" sd="@ViewData["SD"]"></label></td></tr>
+                </Table>
+            </div>
+
+            <div class="row ">
+
+                <input id="submit" type="button" value="提交并返回" class="btn btn-success btn-lg btn-block" /><br /><br />
+            </div>
+
+        </div>
+        <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    </form>
+
+</body>
+</html>

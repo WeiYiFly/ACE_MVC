@@ -1,13 +1,35 @@
 Create database ACE_MVC
-
+delete from SYS_UserSYS_Program
+select * from SYS_UserSYS_Program
 create table SYS_UserSYS_Program
 (
 Id int primary key identity(1,1),
 SYS_UserID varchar(30),
-SYS_ProgramID int,
-
+SYS_ProgramID int
 )
-
+drop table SYS_Module
+drop table
+CREATE TABLE SYS_Program(
+	Id int IDENTITY(1,1) NOT NULL,
+	ChinaName varchar(30) NULL,
+	EnglishName varchar(30) NULL,
+	CreatorID varchar(30) NULL,
+	CreatedTime datetime NULL,
+	Del char(1) NULL)
+	
+	CREATE TABLE [dbo].[SYS_Module](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](30) NULL,
+	[Lv] [char](1) NULL,
+	[Controller] [varchar](30) NULL,
+	[View_] [varchar](30) NULL,
+	[Url] [varchar](50) NULL,
+	[Icon] [varchar](30) NULL,
+	[UpId] [int] NULL,
+	[ProgramId] [int] NULL,
+	[SYS_ProgramId] [int] NOT NULL)
+	
+	
 create table SYS_Program
 (
 Id int primary key identity(1,1),

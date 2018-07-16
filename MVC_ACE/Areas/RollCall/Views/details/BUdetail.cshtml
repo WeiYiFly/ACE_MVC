@@ -1,0 +1,301 @@
+﻿
+@{
+    Layout = null;
+}
+@using MVC_ACE.Areas.RollCall.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/scripts/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/scripts/Bootstrap/js/jquery-2.0.3.min.js"></script>
+    <title>xzdetail</title>
+    <style>
+        .width1 {
+            width: 80%;
+            font-size: 25px;
+            background-color: #33a3dc;
+        }
+
+        .color {
+            font-size: 25px;
+            width: 80%;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle !important;
+            border: 1px solid #000 !important;
+        }
+
+        .btn-mycolor {
+            background-color: #FFEBCD;
+            border-color: #FFEBCD;
+        }
+
+        .mycolor {
+            background-color: #FFEBCD;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #000 !important;
+        }
+
+        .textcenter {
+            text-align: center;
+        }
+    </style>
+    <script>
+
+        $(function () {
+            $("#up").click(
+              function () {
+                  var date = $("#SearchDate").attr("text");
+                  var bu = $("#SearchDate").attr("bu");
+                  // alert(date);
+                  date = parseInt(date) - 1;
+                 /// $("#SearchDate").attr("text", date);
+                  window.location.href = "/RollCall/details/BUdetail/" + bu + "," + date;
+              })
+
+            $("#last").click(
+            function () {
+                var date = $("#SearchDate").attr("text");
+                var bu = $("#SearchDate").attr("bu");
+                date = parseInt(date) + 1;
+                window.location.href = "/RollCall/details/BUdetail/" + bu + "," + date;
+            })
+
+           
+            $("#return").click(
+            function () {
+                var date = $("#SearchDate").attr("text");
+                window.location.href = "/RollCall/details/QCdetail/" + date;
+            })
+
+       // 跳轉部門明細
+            $(".linename").click(
+                function () {
+                    var bu = $(this).attr("bu");
+                    //var linenam = $(this).attr("value");
+                    var linenam = $(this).attr("buid");                    
+                    var classs = $(this).attr("classs");
+                    if (classs == "白班") { classs = 'b'; } else { classs='w'}
+                    var id1 = $("#SearchDate").attr("text");
+                    var data = bu + "," + linenam + "," + classs+","+id1
+                    //alert(data);
+                    window.location.href = "/RollCall/details/xzdetail2/" + data;
+                })
+            $(".zzz").click(
+                function () {
+                    var aa = 1;
+                    $(".linename").each(function () {
+                        aa = aa + 1;
+                    });                  
+                    if (aa == 1) {
+                        var bu = $(this).attr("bu");
+                        //var linenam = $(this).attr("value");
+                        var linenam = $(this).attr("buid");
+                        var classs = $(this).attr("classs");
+                        if (classs == "白班") { classs = 'b'; } else { classs = 'w' }
+                        var id1 = $("#SearchDate").attr("text");
+                        var data = bu + "," + linenam + "," + classs + "," + id1
+                        //alert(data);
+                        window.location.href = "/RollCall/details/xzdetail2/" + data;
+                    }
+                }               
+                )
+
+
+            $("#qq").click(
+            function () {              
+                var bu = $("#SearchDate").attr("bu");
+                var date = $("#SearchDate").attr("text");
+                window.location.href = "/RollCall/details/qqdetail/" + bu + "," + date;
+            })
+
+        })
+
+
+        function checkNum(obj) {
+
+            if (isNaN(obj.value)) {
+                obj.value = "";
+            }
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row textcenter">
+            <Label ID="Label1" Text="Test_Test" class="col-xs-12 textcenter" Font-Size="X-Large">@ViewData["Date"]</Label>
+        </div>
+
+        <div class="row"><input type="button" value="總出勤狀況" class="btn btn-default btn-lg btn-block" /></div>
+        <div class="row">
+            <table id="HolderTable" class="table table-bordered table-condensed">
+                @foreach (BUdetail b in (List<BUdetail>)ViewData["list_budetail_total"])
+                {
+                    <tr class="mycolor">
+                        <td rowspan="3"><button class="btn btn-warning zzz" value="@b.BUID" classs="@b.CLASS" bu="@ViewData["BU"]" buid="@b.BUIDID">@b.BUID @b.CLASS </button> </td>
+                        <td rowspan="2">應到</td>
+                        <td rowspan="2">實到</td>
+                        <td colspan="5">缺勤狀況</td>
+                        <td colspan="4">中途人員變動</td>
+
+                        <td colspan="2">預報</td>
+                        <td colspan="2">實際</td>
+                        <td rowspan="2">預/實加班時數差異比</td>
+
+                    </tr>
+                    <tr class="mycolor">
+                        <td>遲到</td>
+                        <td>請假</td>
+                        <td>曠工</td>
+                        <td>離職</td>
+                        <td>其他</td>
+                        <td>中途上班</td>
+                        <td>早退</td>
+                        <td>請假</td>
+                        <td>調休</td>
+
+                        <td>加班時數</td>
+                        <td>加班人數</td>
+
+                        <td>加班時數</td>
+                        <td>加班人數</td>
+                    </tr>
+                    <tr class="">
+                        <td> @b.yd</td>
+                        <td> @b.sd</td>
+                        <td> @b.cd</td>
+                        <td> @b.qj</td>
+                        <td> @b.kg</td>
+                        <td> @b.lz</td>
+                        <td> @b.qt</td>
+                        <td> @b.zsb</td>
+                        <td>@b.zzt</td>
+                        <td>@b.zqj</td>
+                        <td> @b.ztx</td>
+                        <td> @b.time1</td>
+                        <td> @b.timeOne1</td>
+                        <td> @b.time2</td>
+                        <td> @b.timeOne2</td>
+                        <td> @b.timeOne12</td>
+
+                    </tr>
+                    <tr><td></td></tr>
+                }
+
+
+
+
+
+            </table>
+        </div>
+        <div class="row"><input id="qq" type="button" value="缺勤總明細" class="btn btn-danger btn-lg btn-block" /></div>
+        <div class="row"><input type="button" value="白晚班個線明細" class="btn btn-default btn-lg btn-block" /></div>
+        <div class="row">
+            <table id="HolderTable" class="table table-bordered table-condensed">
+
+                @foreach (BUdetail b in (List<BUdetail>)ViewData["list_budetails"])
+                {
+                    <tr class="mycolor">
+                        <td rowspan="3"><button class="btn btn-warning linename" value="@b.BUID" classs="@b.CLASS" bu="@ViewData["BU"]" buid="@b.BUIDID">@b.BUID @b.CLASS</button> </td>
+                        <td rowspan="2">應到</td>
+                        <td rowspan="2">實到</td>
+                        <td colspan="5">出勤狀況</td>
+                        <td colspan="4">中途人員變動</td>
+
+                        <td colspan="2">預報</td>
+                        <td colspan="2">實際</td>
+                        <td rowspan="2">預/實加班時數差異比</td>
+                    </tr>
+                    <tr class="mycolor">
+                        <td>遲到</td>
+                        <td>請假</td>
+                        <td>曠工</td>
+                        <td>離職</td>
+                        <td>其他</td>
+                        <td>中途上班</td>
+                        <td>早退</td>
+                        <td>請假</td>
+                        <td>調休</td>
+                        <td>加班實時</td>
+                        <td>加班人數</td>
+                        <td>加班實時</td>
+                        <td>加班人數</td>
+                    </tr>
+                    <tr class="">
+                        <td>@b.yd</td>
+                        <td>@b.sd</td>
+                        <td>@b.cd</td>
+                        <td>@b.qj</td>
+                        <td>@b.kg</td>
+                        <td>@b.lz</td>
+                        <td>@b.qt</td>
+                        <td>@b.zsb</td>
+                        <td>@b.zzt</td>
+                        <td>@b.zqj</td>
+                        <td>@b.ztx</td>
+                        <td>@b.time1</td>
+                        <td>@b.timeOne1</td>
+                        <td> @b.time2</td>
+                        <td> @b.timeOne2</td>
+                        <td> @b.timeOne12</td>
+                    </tr>
+                    <tr><td></td></tr>
+                }
+
+
+
+
+
+            </table>
+        </div>
+
+
+
+
+        <div class="row">
+            <form method="post" action="/details/BUdetail/@ViewData["BU"]" class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <table style="text-align:center;width:100%">
+                            <tr wit>
+                                <td><label class="col-ml-2 control-label">輸入年月日期查詢格式:20180101</label></td>
+                                <td>
+                                    <input type="text" maxlength="8" placeholder="輸入日期20180101" class="form-control" id="RData" name="RData" onkeyup="checkNum(this);" />
+                                </td>
+                                <td><div class="col-ml-4"> <button type="submit" id="submit" class="btn btn-sm btn-default">搜索Search</button></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+
+    <label id="SearchDate" text="@ViewData["date_int"]" bu="@ViewData["BU"]"></label>
+    <div class="row">
+        <table style="width:100%;text-align:center">
+            <tr>
+                <td><input type="button" ID="up" value="上一天" class="btn" /></td>
+                <td><input type="button" ID="return" value="返回" class="btn " />     </td>
+                <td><input type="button" ID="last" value="下一天" class="btn" /></td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+
+</html>
