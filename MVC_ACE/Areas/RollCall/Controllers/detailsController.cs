@@ -30,6 +30,7 @@ namespace MVC_ACE.Areas.RollCall.Controllers
             if (id == "010010")
             {
                 Session["UserId"] = id;
+                id = null;
             }
             #region  查詢時間 設置
             if (id == null) id = "0";
