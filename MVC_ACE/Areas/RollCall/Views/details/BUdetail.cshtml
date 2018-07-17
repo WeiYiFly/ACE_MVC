@@ -200,9 +200,10 @@
 
             </table>
         </div>
-        <div class="row"><input id="qq" type="button" value="缺勤總明細" class="btn btn-danger btn-lg btn-block" /></div>
-        <div class="row"><input type="button" value="白晚班個線明細" class="btn btn-default btn-lg btn-block" /></div>
+        <div class="row" ><input id="qq" type="button" value="缺勤總明細" class="btn btn-danger btn-lg btn-block" style="width: 100%;" /></div>
+        <div class="row" ><input type="button" value="白晚班個線明細" class="btn btn-default btn-lg btn-block" style="width: 100%;" /></div>
         <div class="row">
+          
             <table id="HolderTable" class="table table-bordered table-condensed">
 
                 @foreach (BUdetail b in (List<BUdetail>)ViewData["list_budetails"])

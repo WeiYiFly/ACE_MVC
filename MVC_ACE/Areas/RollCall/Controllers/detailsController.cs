@@ -26,6 +26,11 @@ namespace MVC_ACE.Areas.RollCall.Controllers
         //全廠明細
         public ActionResult QCdetail(string id)
         {
+            //文员维护跳转用
+            if (id == "010010")
+            {
+                Session["UserId"] = id;
+            }
             #region  查詢時間 設置
             if (id == null) id = "0";
             DateTime now = DateTime.Now.AddDays(int.Parse(id));
@@ -167,25 +172,15 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                     else
                         qcdetail.timeOne = "0%";
                     qcdetails.Add(qcdetail);
-                    #endregion
-                 
-
-                }
-                if (power_.BUx.Length > 6)
-                {
-                    Lists.Clear();
-                    string[] bu = power_.BUx.Split('/');
-                    foreach (string a in bu)
-                    {
-                        Lists.Add(a);
-                    }
-
+                    #endregion                 
 
                 }
                 if (power_.QC != "Y" && power_.BUx.Length <= 6)
                 {
                     return RedirectToAction("../../RollCall/details/BUdetail/" + power_.BUx + "/,0");
                 }
+               
+
                 #region   個部門的出勤情況 EF
                 /**
                 //個部門的出勤情況
@@ -314,9 +309,20 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                     qcdetails.Add(qcdetail1);
                 }**/
                 #endregion
-                Lists.Remove("PM11"); Lists.Remove("PM12"); Lists.Remove("PM14"); Lists.Remove("PM31");
-                Lists.Remove("PQ12"); Lists.Remove("PQ13"); Lists.Remove("PQ15"); 
-                Lists.Remove("PE11"); Lists.Remove("PE16"); Lists.Remove("PE17"); 
+
+                Lists.Remove("PM11"); Lists.Remove("PM12"); Lists.Remove("PM14"); Lists.Remove("PM31");               
+                Lists.Remove("PQ12"); Lists.Remove("PQ13"); Lists.Remove("PQ15");                
+                Lists.Remove("PE11"); Lists.Remove("PE16"); Lists.Remove("PE17");
+                if (power_.QC != "Y" && power_.BUx.Length > 6)
+                {
+                    Lists.Clear();
+                    string[] bu = power_.BUx.Split('/');
+                    foreach (string a in bu)
+                    {
+                        Lists.Add(a);
+                    }
+                }
+
                 #region 個部門的出勤情況 SQL
                 foreach (string bu1 in Lists)
                 {
@@ -844,7 +850,7 @@ namespace MVC_ACE.Areas.RollCall.Controllers
                 if (bu == "PE11' or   BU='PE16' or BU='PE17") bu = "PE";
                 BUdetail.BUID = bu;
                 BUdetail.CLASS = CLASS;
-                BUdetail.yd = int.Parse(dt.Rows[0][0].ToString());
+                BUdetail.yd = int.Parse(dt.Rows[0][0].ToString());if (BUdetail.yd == 0) { continue; }
                 BUdetail.sd = int.Parse(dt.Rows[0][1].ToString());
                 BUdetail.cd = int.Parse(dt.Rows[0][2].ToString());
                 BUdetail.qj = int.Parse(dt.Rows[0][3].ToString());
